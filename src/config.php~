@@ -1,0 +1,27 @@
+<?php
+/**
+ * $Id: config.php
+ * @Author: Trần Ngọc Nhật
+ * @Application: Horbee
+ **/
+
+if ( ! defined ( 'INAPP' ) ) {
+	header( 'HTTP/1.1 404 Not Found' );
+	exit;
+}
+//mysql database address
+define('DB_HOST','localhost');
+//mysql database user
+define('DB_USER','horbeedbu');
+//database password
+define('DB_PASSWD','ZJahdfcP79br3BNM');
+//database name
+define('DB_NAME','horbeedb');
+//database prefix
+define('DB_PREFIX','v4_');
+//auth key
+define('AUTH_KEY','KiVqZtDVrJvBO3PpvYXj)GkY2tJf14ZJa8fa04da005937516d8bdfff00fdbe54');
+//cookie name
+define('AUTH_COOKIE_NAME','horbee_1GTMS0NQKxTdpxwJKMpA2h4hAT66BweK');
+// using local script
+define('IS_LOCAL', false);
