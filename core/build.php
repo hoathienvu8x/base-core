@@ -14,6 +14,12 @@ $dbname = isset($args[2]) && !empty($args[2]) ? trim($args[2]) : basename($dist)
 $prefix = isset($args[3]) && !empty($args[3]) ? trim($args[3]) : 'table_';
 $dbhost = isset($args[3]) && !empty($args[3]) ? trim($args[3]) : 'localhost';
 
+$cheader = "
+/**
+ * Id: [FILENAME]
+ * copyright (c) 2018[YEAR] AnhChangThode22145
+ **/";
+
 $dist = dirname(__FILE__) . DIR_SEP . 'baseapp';
 c($dist, $struct);
 $actions = $struct['action'];
@@ -24,9 +30,9 @@ foreach($actions as $act) {
 		$fname = 'index';
 	}
     
-    $instance_cls = in_array($act,$struct['model']) ? "\n\$Model = ".ucfirst($fname)."::getInstance();\n" : "";
-    
-	$c = "<?php\nif ( ! defined ( 'INAPP' ) ) {\n\theader('HTTP/1.1 404 Not Found');\n\texit;\n}\n$instance_cls\nrequire_once Xtemplate::get( '$fname' );\nXtemplate::output();\nexit;";
+    	$instance_cls = in_array($act,$struct['model']) ? "\n\$Model = ".ucfirst($fname)."::getInstance();\n" : "";
+    	$vheader = str_replace(array('[FILENAME]','YEAR'), array(basename($act),date('Y') > 2018 ? ' - '.date('y') : ''), $cheader);
+	$c = "<?php$vheader\nif ( ! defined ( 'INAPP' ) ) {\n\theader('HTTP/1.1 404 Not Found');\n\texit;\n}\n$instance_cls\nrequire_once Xtemplate::get( '$fname' );\nXtemplate::output();\nexit;";
 	file_put_contents($dist . DIR_SEP . 'action' . DIR_SEP . $act, $c);
 }
 $model = $struct['model'];
@@ -45,7 +51,8 @@ foreach($model as $m) {
     $tbname = preg_match('/y$/i',$cname) ? substr($cname,0,strlen($cname)-1).'ies' : $cname.'s';
     $tbname = strtolower($tbname);
     $csql .= "\n-- Table $tbname --\ndrop table if exists $tbname;\ncreate table if not exists $prefix$tbname (\n\tid int not null auto_increment,\n\t\n\tprimary key (id)\n) engine=innodb charset=utf8;";
-	$c = "<?php
+	$vheader = str_replace(array('[FILENAME]','YEAR'), array(basename($m),date('Y') > 2018 ? ' - '.date('y') : ''), $cheader);
+	$c = "<?php$vheader
 if ( ! defined ( 'INAPP' ) ) {
 	header('HTTP/1.1 404 Not Found');
 	exit;
@@ -145,7 +152,8 @@ $tpl = $struct['template'];
 unset($tpl['css'],$tpl['js']);
 foreach($tpl as $t) {
     if ($t == 'style.css') continue;
-    $c = "<?php
+	$vheader = str_replace(array('[FILENAME]','YEAR'), array(basename($t),date('Y') > 2018 ? ' - '.date('y') : ''), $cheader);
+    $c = "<?php$vheader
 if ( ! defined ( 'INAPP' ) ) {
 	header('HTTP/1.1 404 Not Found');
 	exit;
