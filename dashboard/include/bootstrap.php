@@ -141,7 +141,12 @@ function access_response($data) {
 	}
 	if (defined('AJAX_DOING')) {
 		header('Content-Type:application/json;charset=utf-8');
+		unset($data['direct']);
 		echo json_uencode($data);
+		exit;
+	}
+	if (isset($data['direct'])) {
+		mDirect($data['direct']);
 		exit;
 	}
 	require_once TEMPLATEPATH . '/header.php';
