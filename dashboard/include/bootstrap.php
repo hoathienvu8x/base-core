@@ -83,6 +83,37 @@ function getSiteUrl() {
 		return SITE_URL;
 	}
 }
+function getCurrentUrl() {
+	$path = '';
+	if (isset($_SERVER['HTTP_X_REWRITE_URL'])) { //iis
+		$path = $_SERVER['HTTP_X_REWRITE_URL'];
+	} elseif (isset($_SERVER['REQUEST_URI'])) {
+		$path = $_SERVER['REQUEST_URI'];
+        } else {
+            if (isset($_SERVER['argv'])) {
+                $path = $_SERVER['PHP_SELF'] .'?'. $_SERVER['argv'][0];
+            } else {
+                $path = $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'];
+            }
+        }
+        //for iis6 path is GBK
+        if (isset($_SERVER['SERVER_SOFTWARE']) && false !== stristr($_SERVER['SERVER_SOFTWARE'], 'IIS')) {
+            if (function_exists('mb_convert_encoding')) {
+                $path = mb_convert_encoding($path, 'UTF-8', 'GBK');
+            } else {
+                $path = @iconv('GBK', 'UTF-8', @iconv('UTF-8', 'GBK', $path)) == $path ? $path : @iconv('GBK', 'UTF-8', $path);
+            }
+        }
+        //for ie6 header location
+        $r = explode('#', $path, 2);
+        $path = $r[0];
+        //for iis6
+        $path = str_ireplace('index.php', '', $path);
+	return $path;
+}
+function is_home() {
+	return getCurrentUrl() == SITE_URL;
+}
 if(!function_exists('hash_hmac')) {
 	function hash_hmac($algo, $data, $key) {
 		$packs = array('md5' => 'H32', 'sha1' => 'H40');
