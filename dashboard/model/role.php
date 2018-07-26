@@ -4,9 +4,26 @@ if (!defined('INAPP')) {
 	exit;
 }
 class Role {
+	const ERROR_INVALID = 1;
+	const ERROR_SAVE = 2;
+	const ERROR_SAVED = 3;
+	const ERROR_UPDATE = 4;
+	const ERROR_UPDATED = 5;
+	const ERROR_DELETE = 6;
+	const ERROR_DELETED = 7;
+	
 	private static $db = null;
 	public function __construct() {
 		self::$db = Database::getInstance();
+	}
+	public static function message($code) {
+		$msg = 'Hệ thống không hiểu lỗi này !';
+		switch ($code) {
+			case self::ERROR_INVALID :
+				$msg = 'Vui lòng nhập vào thông tin !';
+				break;
+		}
+		return $msg;
 	}
 	public function get($options = array(), $page = 1, $limit = 15) {
 		$conds = $orders = array();
