@@ -77,17 +77,6 @@ input#login-btn {
 #logout-msg {
 	color:green;
 }
-
-@media only screen and (min-width: 180px) and (max-width:500px) {
-	#login,#forgot {
-		margin-top:5%;
-	}
-	p.bottom {
-		padding-left:0;
-		padding-right:0;
-	}
-}
-
 .error_notify {
 	color:red;
 	line-height:30px;
@@ -360,67 +349,4 @@ body.fixed {
 	height:100%;
 	top:0;
 	left:0;
-}
-@media only screen and (min-width: 180px) and (max-width:700px) {
-	body {
-		font-size:90%;
-	}
-	#header {
-		left:0;
-	}
-	#aside {
-		left:-180px;
-	}
-	#aside.show {
-		left:0;
-	}
-	#container {
-		margin-left:0;
-	}
-	button.open-nav {
-		margin-left:0;
-	}
-	#form-actions {
-		padding: 10px;
-	}
-	.nav-wrap-show {
-		display:block;
-	}
-	.form-elements p{
-		font-size:90%;
-	}
-	.form-elements {
-		padding:10px;
-	}
-	.form-elements input, .form-elements textarea, .form-elements select{
-		width: 93%;
-	}
-	.form-elements input[type="submit"],.form-elements select{
-		width: 100%!important;
-	}
-	form#top-search {
-		margin-left:0;
-	}
-	.aside, .main {
-		float: none;
-		margin-bottom: 10px;
-		width: 100%;
-	}
-	.service-advance {
-		text-align: left;
-	}
-	.service-advance input, .service-advance select {
-		width: 96%;
-		margin: 3px 0;
-	}
-	.service-advance select, .service-advance input[type="submit"] {
-		width: 100%;
-	}
-	.service-advance select option {
-		background-color: #fff;
-	}
-	.is-logged {
-		padding:10px 0;
-		text-align:center;
-	}
 }
