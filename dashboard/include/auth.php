@@ -17,9 +17,18 @@ class Auth {
 		}
 		$auth_cookie = $_COOKIE[AUTH_COOKIE_NAME];
 		if((self::$userData = self::validateAuthCookie($auth_cookie)) === false) {
-            return false;
-        }
-        return true;
+		        return false;
+        	}
+        	return true;
+	}
+	public static function is_super() {
+		if (self::isLogged() == false) {
+			return false;
+		}
+		if (isset(self::$userData['role']) && self::$userData['role'] == 'administrator') {
+			return true;
+		}
+		return false;
 	}
 	public static function isAdmin() {
 		if (self::isLogged() == false) {
@@ -28,7 +37,7 @@ class Auth {
 		if(isset(self::$userData['role']) && self::$userData['role'] != 'admin') {
 			return false;
 		}
-		if(isset(self::$userData['locked']) && self::$userData['locked'] == 'y') {
+		if(isset(self::$userData['state']) && self::$userData['state'] == 'locked') {
 			return false;
 		}
 		return true;
@@ -44,8 +53,8 @@ class Auth {
 	}
 	public static function checkLogin($username, $password, $imgcode, $logincode = 'n') {
 		if (trim($username) == '' || trim($password) == '') {
-            return self::ERROR_VALID;
-        }
+            		return self::ERROR_VALID;
+        	}
 		if ($logincode == 'y') {
 			$sessionCode = isset($_SESSION['code']) ? $_SESSION['code'] : '';
 			if (empty($imgcode) || strtoupper($imgcode) != $sessionCode) {
@@ -71,11 +80,11 @@ class Auth {
             return false;
         }
         self::$userData = false;
-        if (!self::$userData = $DB->once_fetch_array("select * from ".DB_PREFIX."users where uname = '".$DB->escape_string($userLogin)."'")) {
+        if (!self::$userData = $DB->once_fetch_array("select * from ".DB_PREFIX."users where username = '".$DB->escape_string($userLogin)."'")) {
             return false;
         }
         self::$userData['nickname'] = htmlspecialchars(self::$userData['nickname']);
-        self::$userData['uname'] = htmlspecialchars(self::$userData['uname']);
+        self::$userData['username'] = htmlspecialchars(self::$userData['username']);
         return self::$userData;
     }
 	public static function getUserDataByEmail($email) {
@@ -88,7 +97,7 @@ class Auth {
             return false;
         }
         self::$userData['nickname'] = htmlspecialchars(self::$userData['nickname']);
-        self::$userData['uname'] = htmlspecialchars(self::$userData['uname']);
+        self::$userData['username'] = htmlspecialchars(self::$userData['username']);
         return self::$userData;
     }
 	public static function checkPassword($password, $hash) {
@@ -126,7 +135,7 @@ class Auth {
 		if (empty($cookie)) {
             return false;
         }
-		$cookie_elements = explode('|', $cookie);
+	$cookie_elements = explode('|', $cookie);
         if (count($cookie_elements) != 3) {
             return false;
         }
