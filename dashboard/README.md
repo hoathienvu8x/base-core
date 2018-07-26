@@ -1,4 +1,4 @@
-#Dashboard core
+# Dashboard core
 
 Đây là một dự án mang tính chung chung chưa hoàn thiện tất cả các chức năng cần thiết vì vậy khi clone nó về cần thêm vào một số chức năng và viết mã cho nó
 
