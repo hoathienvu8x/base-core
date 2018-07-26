@@ -4,9 +4,70 @@ if (!defined('INAPP')) {
 	exit;
 }
 class User {
+	const ERROR_NAME_NOTEXIST = 1;
+	const ERROR_EMAIL_NOEXISTS = 2'
+	const ERROR_LOCKED = 3;
+	const ERROR_INVALID = 4;
+	const ERROR_NAME_EXISTS = 5;
+	const ERROR_NAME_INVALID = 6;
+	const ERROR_EMAIL_EXISTS = 7;
+	const ERROR_EMAIL_INVALID = 8;
+	const ERROR_SAVED = 9;
+	const ERROR_SAVE = 10;
+	const ERROR_UPDATE = 11;
+	const ERROR_UPDATED = 12;
+	const ERROR_DELETE = 13;
+	const ERROR_DELETED = 14;
+	const ERROR_LOCKED = 15;
+	const ERROR_LOCK = 16;
+	const ERROR_FORGOTED = 17;
+	const ERROR_FORGOT = 18;
+
 	private static $db = null;
 	public function __construct() {
 		self::$db = Database::getInstance();
+	}
+	public static function message($code) {
+		$msg = 'Hệ thống không hiểu lỗi này !';
+		switch ($code) {
+			case self::ERROR_NAME_NOTEXIST:
+				$msg = 'Tên đăng nhập này không tồn tại !';
+				break;
+			case self::ERROR_NAME_EXISTS:
+				$msg = 'Tên đăng nhập này đã tồn tại !';
+				break;
+			case self::ERROR_NAME_VALID:
+				$msg = 'Tên đăng nhập không hợp lệ !';
+				break;
+			case self::ERROR_EMAIL_NOTEXIST:
+				$msg = 'Email không tồn tại !';
+				break;
+			case self::ERROR_EMAIL_EXISTS:
+				$msg = 'Email này đã tồn tại !';
+				break;
+			case self::ERROR_EMAIL_INVALID:
+				$msg = 'Email không hợp lệ !';
+				break;
+			case self::ERROR_LOCKED:
+				$msg = 'Tài khoản này đang tạm khoá';
+				break;
+			case self::ERROR_INVALID :
+				$msg = 'Vui lòng nhập vào thông tin !';
+				break;
+			case self::ERROR_SAVED:
+				$msg = 'Lưu thông tin thành công !';
+				break;
+			case self::ERROR_SAVE:
+				$msg = 'Lưu thông tin thất bại !';
+				break;
+			case self::ERROR_FORGOTED:
+				$msg = 'Hệ thống đã gửi thông tin đăng nhập vào thư điện tử mà bạn đã đăng ký';
+				break;
+			case self::ERROR_FORGOT:
+				$msg = 'Hệ thống không thể khôi phục thông tin đăng nhập giúp bạn được';
+				break;
+		}
+		return $msg;
 	}
 	public function get($options = array(), $page = 1, $limit = 15) {
 		$conds = $orders = array();
