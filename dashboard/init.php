@@ -3,7 +3,7 @@ if (!defined('INAPP')) {
 	header('HTTP/1.1 404 Not Found');
 	exit();
 }
-// error_reporting(7);
+error_reporting(7);
 ob_start();
 header('Content-Type:text/html;charset=utf-8');
 date_default_timezone_set('Asia/Ho_Chi_Minh');
