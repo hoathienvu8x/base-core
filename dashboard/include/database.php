@@ -11,7 +11,11 @@ class Database {
 			$DB = MySql::getInstance();
 		}
 		if (empty($DB)) {
-			exit('Application needs database store extentions !');
+			access_response(array(
+				'status' => 'error',
+				'url' => SITE_URL,
+				'msg' => 'Application needs database store extentions !'
+			));
 		}
 		return $DB;
 	}
