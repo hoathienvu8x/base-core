@@ -23,28 +23,7 @@ require_once TEMPLATEPATH . 'header.php';
 <?php
 if (isset($_GET['msg'])) {
 	$msg = intval($_GET['msg']);
-	?><div id="login-msg"><?php
-	switch ($msg) {
-		case 1:
-			echo 'Tên đăng nhập này không tồn tại !';
-			break;
-		case 2:
-			echo 'Sai mật khẩu đăng nhập !';
-			break;
-		case 3:
-			echo 'Sai mã xác nhận !';
-			break;
-		case 4:
-			echo 'Tài khoản này đang tạm khóa !';
-			break;
-		case 5:
-			echo 'Vui lòng nhập vào đầy đủ thông tin !';
-			break;
-		default:
-			echo 'Hệ thống không hiểu lỗi này !';
-			break;
-	}
-	?></div><?php
+	?><div id="login-msg"><?php echo Auth::message($msg); ?></div><?php
 }
 if (isset($_GET['lg']) && $_GET['lg'] == 'true') {
 	?><div id="logout-msg">Đăng xuất thành công !</div><?php
