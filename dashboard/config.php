@@ -14,9 +14,6 @@ define('DB_NAME','dashboard');
 //database prefix
 define('DB_PREFIX','');
 //auth key
-define('AUTH_KEY','y7toW8EMipu@qQ1YliPLcM^th(hj&F)I8251dfbdb0e58f8fd5431a914d112e32');
+define('AUTH_KEY','ytuoW8EMipu@qQ1YliPLcM^th(hj&F)I8(51dfbdb0e58f)fd5431a914d112e32');
 //cookie name
-define('AUTH_COOKIE_NAME','hfHAGE0LqfJCnvZak44qHlfSuh8GzogH');
-// using local script
-define('IS_LOCAL', true);
-
+define('AUTH_COOKIE_NAME','HfhHAGE0LqfJCnvZak44qHlfSuhgH8Gzo');
