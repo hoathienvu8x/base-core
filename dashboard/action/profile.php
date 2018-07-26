@@ -39,7 +39,7 @@ if (isset($_POST['saved'])) {
 			access_response(array(
 				'status' => 'success',
 				'url' => Url::action('profile', array('msg' => User::ERROR_UPDATED)),
-				'msg' => User::message(User::ERROR_SAVED)
+				'msg' => User::message(User::ERROR_UPDATED)
 			));
 			exit;
 		} else {
