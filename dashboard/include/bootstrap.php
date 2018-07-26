@@ -126,3 +126,9 @@ function access_response($data) {
 	require_once TEMPLATEPATH . '/footer.php';
 	exit;
 }
+function get_current_user_id() {
+	return Auth::get('id', -1);
+}
+function get_user_data($key, $default = false) {
+	return Auth::get($key, $default);
+}
