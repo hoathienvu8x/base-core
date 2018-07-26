@@ -24,4 +24,17 @@
 		}
 		return false;
 	})();
+	$('#nav-wrap').on('touchstart', function(e) {
+		$('body').removeClass('fixed');
+		$('#aside').removeClass('show');
+		$('#nav-wrap').removeClass('nav-wrap-show');
+	});
+	$('#nav-wrap').on('touchmove', function(e) {
+		e.preventDefault();		
+	});
+	$(document).on('click', '#open-nav', function(e) {
+		$('#nav-wrap').addClass('nav-wrap-show');
+		$('body').addClass('fixed');
+		$('#aside').addClass('show');
+	});
 })(jQuery);
