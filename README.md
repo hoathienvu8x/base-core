@@ -17,3 +17,5 @@ git push -u origin master
 git remote add origin https://github.com/hoathienvu8x/base-core.git
 git push -u origin master
 ```
+
+![img](https://raw.githubusercontent.com/hoathienvu8x/base-core/master/background.jpg)
