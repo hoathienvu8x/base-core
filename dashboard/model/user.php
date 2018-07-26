@@ -22,6 +22,8 @@ class User {
 	const ERROR_LOCK = 16;
 	const ERROR_FORGOTED = 17;
 	const ERROR_FORGOT = 18;
+	const ERROR_FULLNAME_NONE = 19;
+	const ERROR_PASSWORD_INVALID = 20;
 
 	private static $db = null;
 	public function __construct() {
@@ -65,6 +67,12 @@ class User {
 				break;
 			case self::ERROR_FORGOT:
 				$msg = 'Hệ thống không thể khôi phục thông tin đăng nhập giúp bạn được';
+				break;
+			case self::ERROR_PASSWORD_INVALID:
+				$msg = 'Mật khẩu không hợp lệ !';
+				break;
+			case self::ERROR_FULLNAME_NONE:
+				$msg = 'Vui lòng nhập vào họ và tên !';
 				break;
 		}
 		return $msg;
