@@ -22,6 +22,24 @@ class Role {
 			case self::ERROR_INVALID :
 				$msg = 'Vui lòng nhập vào thông tin !';
 				break;
+			case self::ERROR_SAVE:
+                                $msg = 'Lưu thông tin thất bại !';
+                                break;
+                        case self::ERROR_SAVED:
+                                $msg = 'Lưu thông tin thành công !';
+                                break;
+                        case self::ERROR_UPDATE:
+                                $msg = 'Cập nhật thông tin thất bại !';
+                                break;
+                        case self::ERROR_UPDATED:
+                                $msg = 'Cập nhật thông tin thành công !';
+                                break;
+                        case self::ERROR_DELETE:
+                                $msg = 'Xoá thất bại !';
+                                break;
+                        case self::ERROR_DELETED:
+                                $msg = 'Xoá thành công !';
+                                break;
 		}
 		return $msg;
 	}
