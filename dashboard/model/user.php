@@ -12,7 +12,7 @@ class User {
 		$conds = $orders = array();
 		$sql = "select * from " . DB_PREFIX . "users";
 		if (isset($options['keyword'])) {
-			$conds[] = "(uname like '%".self::$db->escape_string($options['keyword'])."%' or email like '%".self::$db->escape_string($options['keyword'])."%' or nickname like '%".self::$db->escape_string($options['keyword'])."%')";
+			$conds[] = "(username like '%".self::$db->escape_string($options['keyword'])."%' or email like '%".self::$db->escape_string($options['keyword'])."%' or nickname like '%".self::$db->escape_string($options['keyword'])."%')";
 		}
 		if (isset($options['role'])) {
 			$conds[] = "role = '".$options['role']."'";
@@ -22,7 +22,7 @@ class User {
 			$sql .= " where " . implode(' and ', $conds);
 		}
 		if (isset($options['name'])) {
-			$orders[] = "uname ".$options['name'];
+			$orders[] = "username ".$options['name'];
 		}
 		if (isset($options['nickname'])) {
 			$orders[] = "nickname ".$options['name'];
@@ -85,7 +85,7 @@ class User {
 		return -1;
 	}
 	public function is_uname_exists($uname, $uid = -1) {
-		$row = self::$db->once_fetch_array("select count(id) as total from ".DB_PREFIX."users where uname = '".self::$db->escape_string($uname)."'".($uid > 0 ? " and id <> $uid" : ""));
+		$row = self::$db->once_fetch_array("select count(id) as total from ".DB_PREFIX."users where username = '".self::$db->escape_string($uname)."'".($uid > 0 ? " and id <> $uid" : ""));
 		if ($row && intval($row['total']) > 0) {
 			return true;
 		}
