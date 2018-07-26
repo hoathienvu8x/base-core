@@ -26,6 +26,24 @@ class Url {
 	public static function profile($args = array()) {
 		return self::action('profile',$args);
 	}
+	public static function login($args = array()) {
+		return self::action('login', $args);
+	}
+	public static function forgot($args = array()) {
+		return self::action('forgot', $args);
+	}
+	public static function admin($args = array()) {
+		return self::action('admin', $args);
+	}
+	public static function event($args = array()) {
+		return self::action('event', $args);
+	}
+	public static function role($args = array()) {
+		return self::action('role', $args);
+	}
+	public static function option($args = array()) {
+		return self::action('option', $args);
+	}
 	public static function logout() {
 		return SITE_URL . '?logout=true';
 	}
