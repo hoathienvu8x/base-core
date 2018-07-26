@@ -1,0 +1,8 @@
+User-Agent: *
+Disallow: 
+Disallow: /include
+Disallow: /template
+Disallow: /action
+Disallow: /data.sql
+Disallow: /init.php
+Disallow: /config.php
