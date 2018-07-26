@@ -6,11 +6,10 @@ if (!defined('INAPP')) {
 class Option {
 	const CORE_VERSION = '1.0.0';
 	public static function get($option, $default = false) {
-		$DB = Database::getInstance();
 		if (empty($option)) {
 			return $default;
 		}
-		$row = $DB->once_fetch_array("select option_value from ".DB_PREFIX."options where option_name = '".$DB->escape_string($option)."'");
+		$row = self::getOne($option);
 		if (!$row) {
 			return $default;
 		}
@@ -32,6 +31,77 @@ class Option {
 				break;
 		}
 		return $row['option_value'];
+	}
+	public static function getOne($option) {
+		$DB = Database::getInstance();
+		$row = $DB->once_fetch_array("select * from ".DB_PREFIX."options where option_name = '".$DB->escape_string($option)."'");
+		if (!$row) {
+			return null;
+		}
+		return $row;
+	}
+	public static function getAll($options = array(), $page = 1, $limit = 15) {
+
+	}
+	public static function add($option, $value, $desc = '', $autoload = 'n') {
+		$row = self::getOne($option);
+		if (!$row) {
+			$DB = Database::getInstance();
+			if (is_array($value)) {
+				$value = serialize($value);
+			}
+
+			$keys = $values = array();
+			$keys[] = "option_name";
+			$values[] = "'".$DB->escape_string($option)."'";
+			$keys[] = "option_value";
+			$values[] = "'".$DB->escape_string($value)."'";
+			if (!empty($desc)) {
+				$keys[] = "option_desc";
+				$values[] = "'".$DB->escape_string($desc)."'";
+			}
+			$keys[] = "autoload";
+			$values[] = "'".$DB->escape_string($autoload)."'";
+			$DB->query("insert into ".DB_PREFIX."options (".implode(',',$keys).") values (".implode(',',$values).")");
+			if ($DB->affected_rows() > 0) {
+				return true;
+			}
+			return false;
+		}
+		return true;
+	}
+	public static function delete($option) {
+		$DB = Database::getInstance();
+		$DB->query("delete from ".DB_PREFIX."options where option_name = '".$DB->escape_string($option)."'");
+		if ($DB->affected_rows() > 0) {
+			return true;
+		}
+		return false;
+	}
+	public static function update($option, $value, $desc = null, $autoload = null) {
+		$row = self::getOne($option);
+		if (!$row) {
+			return false;
+		}
+		$DB = Database::getInstance();
+		if (is_array($value)) {
+			$value = serialize($value);
+		}
+		$items = array("option_value = '".$DB->escape_string($value)."'");
+		if ($desc) {
+			$items[] = "option_desc = '".$DB->escape_string($desc)."'";
+		}
+		if ($autoload) {
+			$items[] = "autoload = '".$DB->escape_string($autoload)."'";
+		}
+		if (empty($items)) {
+			return false;
+		}
+		$DB->query("update ".DB_PREFIX."options set ".implode(',',$items)." where option_name = '".$DB->escape_string($option)."'");
+		if ($DB->affected_rows() >= 0) {
+			return true;
+		}
+		return false;
 	}
 }
 ?>
