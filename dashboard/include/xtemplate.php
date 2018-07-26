@@ -6,16 +6,16 @@ if (!defined('INAPP')) {
 class Xtemplate {
 	public static function get($template, $ext = '.php') {
 		if (!is_dir(TEMPLATEPATH)) {
-			app_exit(array(
+			access_response(array(
 				'status' => 'error',
-				'data' => null,
+				'url' => SITE_URL,
 				'msg' => 'Không tìm thấy giao diện !'
 			));
 		}
 		if ( !file_exists(TEMPLATEPATH . DIRECTORY_SEPARATOR . $template . $ext)) {
-			app_exit(array(
+			access_response(array(
 				'status' => 'error',
-				'data' => null,
+				'url' => SITE_URL,
 				'msg' => 'Không tìm thấy giao diện &quot;'.$template.'&quot; yêu cầu !'
 			));
 		}
