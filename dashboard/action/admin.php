@@ -5,12 +5,62 @@ if (!defined('INAPP')) {
 }
 $pageTitle = 'ACP :: Users';
 
-$Model = User::getInstance();
+$Model = new User();
 
 if (isset($_POST['saved'])) {
-	$data = array();
-	
+	$data = array(
+		'nickname' => '',
+		'username' => '',
+		'email' => '',
+		'role' => isset($_POST['role']) ? trim($_POST['role']) : 'member',
+		'state' => isset($_POST['state']) ? trim($_POST['state']) : 'register'
+	);
+	if (!isset($_POST['nickname']) || empty($_POST['nickname'])) {
+		access_response(array(
+			'status' => 'error',
+			'direct' => Url::admin(array('msg' => User::ERROR_)),
+			'msg' => User::message(User::ERROR_)
+		));
+		exit;
+	}
+	$data['nickname'] = trim($_POST['nickname']);
+	if (!isset($_POST['username']) && empty($_POST['username'])) {
+		access_response(array(
+			'status' => 'error',
+			'direct' => Url::admin(array('msg' => User::ERROR_)),
+			'msg' => User::message(User::ERROR_)
+		));
+		exit;
+	}
+	$data['username'] = trim($_POST['username']);
+	if (isset($_POST['password']) && strlen($_POST['password']) > 4) {
+		$PHPASS = new PasswordHash(8, true);
+		$data['password'] = $PHPASS->HashPassword($_POST['password']);
+	}
 	if (isset($_POST['id']) && intval($_POST['id']) > 0) {
+		if ($Model->is_uname_exists($data['username'], intval($_POST['id']))) {
+                        access_response(array(
+                                'status' => 'error',
+                                'direct' => Url::admin(array('msg' => User::ERROR_NAME_EXISTS)),
+                                'msg' => User::message(User::ERROR_NAME_EXISTS)
+                        ));
+                        exit;
+                }
+                if (is_mail($data['email']) && $Model->is_email_exists($data['email'], intval($_POST['id']))) {
+                        access_response(array(
+                                'status' => 'error',
+                                'direct' => Url::admin(array('msg' => User::ERROR_EMAIL_EXISTS)), 
+                                'msg' => User::message(User::ERROR_EMAIL_EXISTS)
+                        ));
+                        exit;
+                }
+		if (!is_mail($data['email'])) {
+			unset($data['email']);
+		}
+		unset($data['username']);
+		if (isset($data['password']) && empty($data['password'])) {
+			unset($data['password']);
+		}
 		$user_id = $Model->update($data, intval($_POST['id']));
 		if ($user_id > 0) {
 			access_response(array(
@@ -26,6 +76,46 @@ if (isset($_POST['saved'])) {
 			));
 		}
 	} else {
+		if (empty($data['username']) || strlen($data['username'])) {
+			access_response(array(
+				'status' => 'error',
+				'direct' => Url::admin(array('msg' => User::ERROR_NAME_INVALID)),
+				'msg' => User::message(User::ERROR_NAME_INVALID)
+			));
+			exit;
+		}
+		if (!is_mail($data['email'])) {
+			access_response(array(
+                                'status' => 'error',
+                                'direct' => Url::admin(array('msg' => User::ERROR_EMAIL_INVALID)),
+                                'msg' => User::message(User::ERROR_EMAIL_INVALID)
+                        ));
+                        exit;
+		}
+		if (!isset($data['password'])) {
+			access_response(array(
+                                'status' => 'error',
+                                'direct' => Url::admin(array('msg' => User::ERROR_PASSWORD_INVALID)),
+                                'msg' => User::message(User::ERROR_PASSWORD_INVALID)
+                        ));
+                        exit;
+		}
+		if ($Model->is_uname_exists($data['username'])) {
+			access_response(array(
+				'status' => 'error',
+				'direct' => Url::admin(array('msg' => User::ERROR_NAME_EXISTS)),
+				'msg' => User::message(User::ERROR_NAME_EXISTS)
+			));
+			exit;
+		}
+		if ($Model->is_email_exists($data['email'])) {
+			access_response(array(
+                                'status' => 'error',
+                                'direct' => Url::admin(array('msg' => User::ERROR_EMAIL_EXISTS)), 
+                                'msg' => User::message(User::ERROR_EMAIL_EXISTS)
+                        ));
+                        exit;
+		}
 		$user_id = $Model->add($data);
 		if ($user_id > 0) {
 			access_response(array(
@@ -127,7 +217,7 @@ $order = isset($_GET['order']) && !empty($_GET['order']) ? strtolower(trim($_GET
 $options['orderby'] = $orderBy;
 $options['order'] = $order;
 
-$customers = $Model->getAll($options, $page, 20);
+$users = $Model->get($options, $page, Option::get('row_per_page', 20));
 
 require_once TEMPLATEPATH . 'admin.php';
 exit;
