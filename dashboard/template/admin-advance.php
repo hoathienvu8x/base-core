@@ -7,18 +7,18 @@ if (!defined('INAPP')) {
 require_once TEMPLATEPATH . 'header.php';
 ?>
 <div class="form-elements">
-	<form action="<?php echo Url::action('admin'); ?>" method="post">
+	<form action="<?php echo Url::admin(); ?>" method="post">
 		<p>
 			Nickname<br />
-			<input type="text" name="nickname" value="" placeholder="Nickname" />
+			<input type="text" name="nickname" value="<?php echo isset($user['nickname']) ? $user['nickname'] : ''; ?>" placeholder="Nickname" />
 		</p>
 		<p>
 			Email<br />
-			<input type="tel" name="email" value="" placeholder="Email" />
+			<input type="tel" name="email" value="<?php echo isset($user['email']) ? $user['email'] : ''; ?>" placeholder="Email" />
 		</p>
 		<p>
 			Username<br />
-			<input type="text" name="username" placeholder="User name"></textarea>
+			<input type="text" name="username" value="<?php echo isset($user['username']) ? $user['username'] : ''; ?>" placeholder="User name" readonly="readonly" />
 		</p>
 		<p>
 			Password<br />
@@ -26,11 +26,12 @@ require_once TEMPLATEPATH . 'header.php';
 		</p>
 		<p>
 			Role<br />
+			<?php $checked = isset($user['role']) ? $user['role'] : 'member'; ?>
 			<select name="role">
-				<option value="member">Member</option>
-				<option value="account">Account</option>
-				<option value="admin">Admin</option>
-				<option value="administrator">Supper Admin</option>
+				<option value="member"<?php echo $checked == 'member' ? ' selected="selected"' : ''; ?>>Member</option>
+				<option value="account"<?php echo $checked == 'account' ? ' selected="selected"' : ''; ?>>Account</option>
+				<option value="admin"<?php echo $checked == 'admin' ? ' selected="selected"' : ''; ?>>Admin</option>
+				<option value="administrator"<?php echo $checked == 'administrator' ? ' selected="selected"' : ''; ?>>Supper Admin</option>
 			</select>
 		</p>
 		<p>
