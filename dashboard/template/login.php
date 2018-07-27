@@ -15,7 +15,7 @@ require_once TEMPLATEPATH . 'header.php';
 			<input type="password" name="password" id="password" value="" autocapitalize="off" autocomplete="off" />
 		</p>
 		<p id="pbottom">
-			<a href="<?php echo Url::action('forgot'); ?>">Quên mật khẩu ư ?</a>
+			<a href="<?php echo Url::forgot(); ?>">Quên mật khẩu ư ?</a>
 			<input type="submit" name="login" id="login-btn" value="Đăng nhập"/>
 		</p>
 	</form>
@@ -26,7 +26,7 @@ if (isset($_GET['msg'])) {
 	?><div id="login-msg"><?php echo Auth::message($msg); ?></div><?php
 }
 if (isset($_GET['lg']) && $_GET['lg'] == 'true') {
-	?><div id="logout-msg">Đăng xuất thành công !</div><?php
+	?><div id="logout-msg"><?php echo Auth::message(trim($_GET['lg'])); ?></div><?php
 }
 require_once TEMPLATEPATH . 'footer.php';
 exit;
