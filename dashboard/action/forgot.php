@@ -6,7 +6,11 @@ if (!defined('INAPP')) {
 $pageTitle = 'ACP :: Quên mật khẩu';
 
 if (Auth::isLogged()) {
-	mDirect(Url::action('profile'));
+	access_response(array(
+                'status' => 'warning',
+                'direct' => Url::profile(array('msg' => User::ERROR_STAYLOGIN)),
+        	'msg' => User::message(Auth::ERROR_STAYLOGIN)
+        ));
 	exit;
 }
 
@@ -15,7 +19,7 @@ if (isset($_POST['field_chk'])) {
 	if (empty($field_chk)) {
 		access_response(array(
 			'status' => 'error',
-			'url' => Url::action('forgot', array('msg' => User::ERROR_INVALID)),
+			'direct' => Url::action('forgot', array('msg' => User::ERROR_INVALID)),
 			'msg' => User::message(User::ERROR_INVALID)
 		));
 		exit;
@@ -25,7 +29,7 @@ if (isset($_POST['field_chk'])) {
 		if ($user_data === false) {
 			access_response(array(
 				'status' => 'error',
-				'url' => Url::action('forgot', array('msg' => User::ERROR_NAME_NOTEXISTS)),
+				'direct' => Url::action('forgot', array('msg' => User::ERROR_NAME_NOTEXISTS)),
 				'msg' => User::message(User::ERROR_NAME_NOTEXISTS)
 			));
 			exit;
@@ -34,7 +38,7 @@ if (isset($_POST['field_chk'])) {
 
 		access_response(array(
 			'status' => 'success',
-			'url' => Url::action('forgot', array('msg' => User::ERROR_FORGOTED)),
+			'direct' => Url::action('forgot', array('msg' => User::ERROR_FORGOTED)),
 			'msg' => User::message(User::ERROR_FORGOTED)
 		));
 		exit;
@@ -43,7 +47,7 @@ if (isset($_POST['field_chk'])) {
 		if ($user_data === false) {
 			access_response(array(
 				'status' => 'error',
-				'url' => Url::action('forgot', array('msg' => User::ERROR_EMAIL_NOTEXISTS)),
+				'direct' => Url::action('forgot', array('msg' => User::ERROR_EMAIL_NOTEXISTS)),
 				'msg' => User::message(User::ERROR_EMAIL_NOTEXISTS)
 			));
 			exit;
@@ -52,7 +56,7 @@ if (isset($_POST['field_chk'])) {
 
 		access_response(array(
                         'status' => 'success',
-                        'url' => Url::action('forgot', array('msg' => User::ERROR_FORGOTED)),
+                        'direct' => Url::action('forgot', array('msg' => User::ERROR_FORGOTED)),
                         'msg' => User::message(User::ERROR_FORGOTED)
                 ));
 		exit;

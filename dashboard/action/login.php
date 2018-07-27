@@ -8,20 +8,36 @@ if (isset($_POST['username'],$_POST['password'])) {
 	$password = trim($_POST['password']);
 	$img_code = isset($_POST['imgcode']) ? strtoupper(trim($_POST['imgcode'])) : '';
 	if (empty($username)) {
-		mDirect('./?msg=5');
+		access_response(array(
+			'status' => 'error',
+			'direct' => Url::home(array('msg' => Auth::ERROR_VALID)),
+			'msg' => Auth::message(Auth::ERROR_VALID)
+		));
 		exit();
 	}
 	if (empty($password)) {
-		mDirect('./?msg=5');
+		access_response(array(
+                        'status' => 'error',
+                        'direct' => Url::home(array('msg' => Auth::ERROR_VALID)),
+                        'msg' => Auth::message(Auth::ERROR_VALID)
+                ));
 		exit();
 	}
 	$result = Auth::checkLogin($username, $password,$img_code,'n');
-	if ($result > 0) {
-		mDirect('./?msg='.$result);
+	if ($result != Auth::ERROR_NONE) {
+		access_response(array(
+                        'status' => 'error',
+                        'direct' => Url::home(array('msg' => $result)),
+                        'msg' => Auth::message($result)
+                ));
 		exit();
 	}
 	Auth::setAuthCookie($username, $ispersis);
-	mDirect('./');
+	access_response(array(
+                'status' => 'success',
+                'direct' => Url::home(),
+        	'msg' => Auth::message(Auth::ERROR_SUCCESS)
+        ));
 	exit;
 }
 require_once TEMPLATEPATH . 'login.php';
