@@ -7,7 +7,7 @@ if (!defined('INAPP')) {
 require_once TEMPLATEPATH . 'header.php';
 ?>
 
-<?php foreach($roles as $row) : ?>
+<?php foreach($events as $row) : ?>
 
 <?php endforeach; ?>
 

@@ -7,6 +7,10 @@ if (!defined('INAPP')) {
 require_once TEMPLATEPATH . 'header.php';
 ?>
 
+<?php foreach($users as $row) : ?>
+
+<?php endforeach; ?>
+
 <?php
 require_once TEMPLATEPATH . 'footer.php';
 exit;
