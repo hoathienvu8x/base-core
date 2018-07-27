@@ -25,6 +25,7 @@ class User {
 	const ERROR_FULLNAME_NONE = 19;
 	const ERROR_PASSWORD_INVALID = 20;
 	const ERROR_STAYLOGIN = 21;
+	const ERROR_NOTEXISTS = 22;
 
 	private static $db = null;
 	public function __construct() {
@@ -33,6 +34,9 @@ class User {
 	public static function message($code) {
 		$msg = 'Hệ thống không hiểu lỗi này !';
 		switch ($code) {
+			case self::ERROR_NOTEXISTS:
+				$msg = 'Tài khoản này không tồn tại trên hệ thông !';
+				break;
 			case self::ERROR_STAYLOGIN:
 				$msg = 'Bạn đang đăng nhập vui lòng vô thông tin tài khoản để cập nhật';
 				break;
