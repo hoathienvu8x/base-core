@@ -10,6 +10,7 @@ class Auth {
 	const ERROR_CODE = 3;
 	const ERROR_BLOCKED = 4;
 	const ERROR_VALID = 5;
+	const ERROR_SUCCESS = 6;
 	private static $userData = null;
 	public static function isLogged() {
 		if (!isset($_COOKIE[AUTH_COOKIE_NAME]) || empty($_COOKIE[AUTH_COOKIE_NAME])) {
@@ -20,6 +21,33 @@ class Auth {
 		        return false;
         	}
         	return true;
+	}
+	public static function message($core) {
+		$msg = '';
+		switch($code) {
+			case self::ERROR_SUCCESS:
+				$msg = 'Đăng nhập thành công !';
+				break;
+			case self::ERROR_NONE:
+				$msg = 'Tốt quá không có lỗi nào !';
+				break;
+			case self::ERROR_USER:
+				$msg = 'Tên đăng nhập không đúng !';
+				break;
+			case self::ERROR_PASSWD:
+				$msg = 'Mật khẩu không đúng !';
+				break;
+			case self::ERROR_CODE:
+				$msg = 'Mã xác thực khi đăng nhập không khớp !';
+				break;
+			case self::ERROR_BLOCKED:
+				$msg = 'Tài khoản này đang tạm khoá !';
+				break;
+			case self::ERROR_VALID:
+				$msg = 'Vui lòng nhập vào thông tin';
+				break;
+		}
+		return $msg;
 	}
 	public static function is_super() {
 		if (self::isLogged() == false) {
