@@ -16,6 +16,9 @@ define('SITE_URL',Option::get('site_url','http://localhost/dashboard/'));
 define('TEMPLATEPATH', SITE_ROOT . '/template/');
 define('TEMPLATEURL', SITE_URL . 'template/');
 
+define('UPLOADPATH', SITE_ROOT . DIRECTORY_SEPARATOR . 'uploads');
+define('UPLOADURL', SITE_URL . '/uploads/');
+
 if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 	define('AJAX_DOING', true);
 }
