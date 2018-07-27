@@ -15,13 +15,13 @@ if (isset($_POST['saved'])) {
 		if ($user_id > 0) {
 			access_response(array(
 				'status' => 'success',
-				'direct' => Url::action('admin', array('msg' => User::ERROR_UPDATED)),
+				'direct' => Url::admin(array('msg' => User::ERROR_UPDATED)),
 				'msg' => User::message(User::ERROR_UPDATED)
 			));
 		} else {
 			access_response(array(
 				'status' => 'error',
-				'direct' => Url::action('admin', array('msg' => User::ERROR_UPDATE)),
+				'direct' => Url::admin(array('msg' => User::ERROR_UPDATE)),
 				'msg' => User::message(User::ERROR_UPDATE)
 			));
 		}
@@ -30,13 +30,13 @@ if (isset($_POST['saved'])) {
 		if ($user_id > 0) {
 			access_response(array(
 				'status' => 'success',
-				'direct' => Url::action('admin', array('msg' => User::ERROR_SAVED)),
+				'direct' => Url::admin(array('msg' => User::ERROR_SAVED)),
 				'msg' => User::message(User::ERROR_SAVED)
 			));
 		} else {
 			access_response(array(
 				'status' => 'error',
-				'direct' => Url::action('admin', array('msg' => User::ERROR_SAVE)),
+				'direct' => Url::admin(array('msg' => User::ERROR_SAVE)),
 				'msg' => User::message(User::ERROR_SAVE)
 			));
 		}
@@ -48,7 +48,7 @@ if (isset($_GET['del'])) {
 	if ($user <= 0) {
 		access_response(array(
 			'status' => 'error',
-			'direct' => Url::action('admin', array('msg' => User::ERROR_INVALID)),
+			'direct' => Url::admin(array('msg' => User::ERROR_INVALID)),
 			'msg' => User::message(User::ERROR_INVALID)
 		));
 	}
@@ -56,13 +56,13 @@ if (isset($_GET['del'])) {
 	if ($user_id > 0) {
 		access_response(array(
 			'status' => 'success',
-			'direct' => Url::action('admin', array('msg' => User::ERROR_DELETED)),
+			'direct' => Url::admin(array('msg' => User::ERROR_DELETED)),
 			'msg' => User::message(User::ERROR_DELETED)
 		));
 	} else {
 		access_response(array(
 			'status' => 'error',
-			'url' => Url::action('admin', array('msg' => User::ERROR_DELETE)),
+			'url' => Url::admin(array('msg' => User::ERROR_DELETE)),
 			'msg' => User::message(User::ERROR_DELETE)
 		));
 	}
@@ -73,7 +73,7 @@ if (isset($_GET['change'], $_GET['to'])) {
 	if ($user <= 0) {
 		access_response(array(
 			'status' => 'error',
-			'direct' => Url::action('admin', array('msg' => User::ERROR_INVALID)),
+			'direct' => Url::admin(array('msg' => User::ERROR_INVALID)),
 			'msg' => User::message(User::ERROR_INVALID)
 		));
 	} 
@@ -82,13 +82,13 @@ if (isset($_GET['change'], $_GET['to'])) {
 	if ($customer_id > 0) {
 		access_response(array(
 			'status' => 'success',
-			'direct' => Url::action('admin', array('msg' => User::ERROR_CHANGED)),
+			'direct' => Url::admin(array('msg' => User::ERROR_CHANGED)),
 			'msg' => User::message(User::ERROR_CHANGED)
 		));
 	} else {
 		access_response(array(
 			'status' => 'error',
-			'direct' => Url::action('admin', array('msg' => User::ERROR_CHANGE)),
+			'direct' => Url::admin(array('msg' => User::ERROR_CHANGE)),
 			'msg' => User::message(User::ERROR_CHANGE)
 		));
 	}
@@ -104,9 +104,11 @@ if (isset($_GET['edit']) && intval($_GET['edit']) > 0) {
 	$pageTitle = 'ACP :: Update user';
 	$user = $Model->getOne(intval($_GET['edit']));
 	if (!$user) {
-		$dialogTitle = 'Lỗi';
-		$dialogMsg = 'Không tìm thấy khách hàng này';
-		require_once TEMPLATEPATH . '/dialog.php';
+		access_response(array(
+			'status' => 'error',
+			'direct' => Url::admin(array('msg' => User::ERROR_NOTEXISTS)),
+			'msg' => User::message(User::ERROR_NOTEXISTS)
+		));
 		exit;
 	}
 	require_once TEMPLATEPATH . 'admin-advance.php';
@@ -120,7 +122,7 @@ $options = array();
 if (isset($_GET['keyword']) && !empty($_GET['keyword'])) {
 	$options['keyword'] = trim($_GET['keyword']);
 }
-$orderBy = isset($_GET['orderby']) && !empty($_GET['orderby']) ? strtolower(trim($_GET['orderby'])) : 'name'; // name|phone|address|id
+$orderBy = isset($_GET['orderby']) && !empty($_GET['orderby']) ? strtolower(trim($_GET['orderby'])) : 'name'; 
 $order = isset($_GET['order']) && !empty($_GET['order']) ? strtolower(trim($_GET['order'])) : 'asc';
 $options['orderby'] = $orderBy;
 $options['order'] = $order;
