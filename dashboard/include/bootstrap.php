@@ -168,3 +168,6 @@ function get_current_user_id() {
 function get_user_data($key, $default = false) {
 	return Auth::get($key, $default);
 }
+function make_alias_from_str($str) {
+	return $str;
+}
