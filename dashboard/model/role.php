@@ -11,7 +11,10 @@ class Role {
 	const ERROR_UPDATED = 5;
 	const ERROR_DELETE = 6;
 	const ERROR_DELETED = 7;
-	
+	const ERROR_NAME = 8;
+	const ERROR_EXISTS = 9;
+	const ERROR_NOTEXISTS = 10;
+
 	private static $db = null;
 	public function __construct() {
 		self::$db = Database::getInstance();
@@ -19,6 +22,15 @@ class Role {
 	public static function message($code) {
 		$msg = 'Hệ thống không hiểu lỗi này !';
 		switch ($code) {
+			case self::ERROR_NAME:
+				$msg = 'Vui lòng nhập vào đúng tên quyền !';
+				break;
+			case self::ERROR_EXISTS:
+				$msg = 'Quyền này đã tồn tại trên hệ thống !';
+				break;
+			case self::ERROR_NOTEXISTS:
+				$msg = 'Không tìm thấy quyền này trên hệt thống !';
+				break;
 			case self::ERROR_INVALID :
 				$msg = 'Vui lòng nhập vào thông tin !';
 				break;
