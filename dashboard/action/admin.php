@@ -15,13 +15,13 @@ if (isset($_POST['saved'])) {
 		if ($user_id > 0) {
 			access_response(array(
 				'status' => 'success',
-				'url' => Url::action('admin', array('msg' => User::ERROR_UPDATED)),
+				'direct' => Url::action('admin', array('msg' => User::ERROR_UPDATED)),
 				'msg' => User::message(User::ERROR_UPDATED)
 			));
 		} else {
 			access_response(array(
 				'status' => 'error',
-				'url' => Url::action('admin', array('msg' => User::ERROR_UPDATE)),
+				'direct' => Url::action('admin', array('msg' => User::ERROR_UPDATE)),
 				'msg' => User::message(User::ERROR_UPDATE)
 			));
 		}
@@ -30,13 +30,13 @@ if (isset($_POST['saved'])) {
 		if ($user_id > 0) {
 			access_response(array(
 				'status' => 'success',
-				'url' => Url::action('admin', array('msg' => User::ERROR_SAVED)),
+				'direct' => Url::action('admin', array('msg' => User::ERROR_SAVED)),
 				'msg' => User::message(User::ERROR_SAVED)
 			));
 		} else {
 			access_response(array(
 				'status' => 'error',
-				'url' => Url::action('admin', array('msg' => User::ERROR_SAVE)),
+				'direct' => Url::action('admin', array('msg' => User::ERROR_SAVE)),
 				'msg' => User::message(User::ERROR_SAVE)
 			));
 		}
@@ -48,7 +48,7 @@ if (isset($_GET['del'])) {
 	if ($user <= 0) {
 		access_response(array(
 			'status' => 'error',
-			'url' => Url::action('admin', array('msg' => User::ERROR_INVALID)),
+			'direct' => Url::action('admin', array('msg' => User::ERROR_INVALID)),
 			'msg' => User::message(User::ERROR_INVALID)
 		));
 	}
@@ -56,7 +56,7 @@ if (isset($_GET['del'])) {
 	if ($user_id > 0) {
 		access_response(array(
 			'status' => 'success',
-			'url' => Url::action('admin', array('msg' => User::ERROR_DELETED)),
+			'direct' => Url::action('admin', array('msg' => User::ERROR_DELETED)),
 			'msg' => User::message(User::ERROR_DELETED)
 		));
 	} else {
@@ -73,7 +73,7 @@ if (isset($_GET['change'], $_GET['to'])) {
 	if ($user <= 0) {
 		access_response(array(
 			'status' => 'error',
-			'url' => Url::action('admin', array('msg' => User::ERROR_INVALID)),
+			'direct' => Url::action('admin', array('msg' => User::ERROR_INVALID)),
 			'msg' => User::message(User::ERROR_INVALID)
 		));
 	} 
@@ -82,13 +82,13 @@ if (isset($_GET['change'], $_GET['to'])) {
 	if ($customer_id > 0) {
 		access_response(array(
 			'status' => 'success',
-			'url' => Url::action('admin', array('msg' => User::ERROR_CHANGED)),
+			'direct' => Url::action('admin', array('msg' => User::ERROR_CHANGED)),
 			'msg' => User::message(User::ERROR_CHANGED)
 		));
 	} else {
 		access_response(array(
 			'status' => 'error',
-			'url' => Url::action('admin', array('msg' => User::ERROR_CHANGE)),
+			'direct' => Url::action('admin', array('msg' => User::ERROR_CHANGE)),
 			'msg' => User::message(User::ERROR_CHANGE)
 		));
 	}
