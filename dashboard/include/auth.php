@@ -11,6 +11,7 @@ class Auth {
 	const ERROR_BLOCKED = 4;
 	const ERROR_VALID = 5;
 	const ERROR_SUCCESS = 6;
+	const ERROR_LOGGOUT = 'true';
 	private static $userData = null;
 	public static function isLogged() {
 		if (!isset($_COOKIE[AUTH_COOKIE_NAME]) || empty($_COOKIE[AUTH_COOKIE_NAME])) {
@@ -25,6 +26,9 @@ class Auth {
 	public static function message($core) {
 		$msg = '';
 		switch($code) {
+			case self::ERROR_LOGGOUT:
+				$msg = 'Đăng xuất thành công !';
+				break;
 			case self::ERROR_SUCCESS:
 				$msg = 'Đăng nhập thành công !';
 				break;

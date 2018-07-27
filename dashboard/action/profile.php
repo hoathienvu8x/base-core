@@ -19,7 +19,7 @@ if (isset($_POST['saved'])) {
 		$_GET['msg'] = User::ERROR_FULLNAME_NONE;
 		$hasError = $hasError || true;
 	}
-	if ($UModel->is_email_exists($u_data['email'], Auth::get('id', -1))) {
+	if ($UModel->is_email_exists($u_data['email'], get_current_user_id())) {
 		$_GET['msg'] = User::ERROR_EMAIL_EXISTS;
 		$hasError = $hasError || true;
 	}
@@ -34,11 +34,11 @@ if (isset($_POST['saved'])) {
 		}
 	}
 	if ($hasError == false) {
-		$id = $UModel->update($u_data, intval(Auth::get('id',-1)));
+		$id = $UModel->update($u_data, intval(get_current_user_id()));
 		if ($id > 0) {
 			access_response(array(
 				'status' => 'success',
-				'url' => Url::action('profile', array('msg' => User::ERROR_UPDATED)),
+				'direct' => Url::action('profile', array('msg' => User::ERROR_UPDATED)),
 				'msg' => User::message(User::ERROR_UPDATED)
 			));
 			exit;
