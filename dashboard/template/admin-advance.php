@@ -36,17 +36,24 @@ require_once TEMPLATEPATH . 'header.php';
 		</p>
 		<p>
 			State<br />
+			<?php $checked = isset($user['state']) ? $user['state'] : 'register'; ?>
 			<select name="state">
-				<option value="register">Register</option>
-				<option value="checked">Checked</option>
-				<option value="blocked">Blocked</option>
+				<option value="register"<?php echo $checked == 'register' ? ' selected="selected"' : ''; ?>>Register</option>
+				<option value="checked"<?php echo $checked == 'checked' ? ' selected="selected"' : ''; ?>>Checked</option>
+				<option value="blocked"<?php echo $checked == 'blocked' ? ' selected="selected"' : ''; ?>>Blocked</option>
 			</select>
 		</p>
 		<p>
 			Photo<br />
+			<?php if (isset($user['photo']) && !empty($user['photo'])) : ?>
+			<span id="user-photo"><img src="<?php echo UPLOADURL; ?>avatars/<?php echo $user['photo']; ?>" /></span>
+			<?php endif; ?>
 			<input type="file" name="photo" placeholder="Photo" />
 		</p>
 		<p class="bottom">
+			<?php if (isset($user['id']) && intval($user['id']) > 0) : ?>
+			<input type="hidden" name="id" value="<?php echo $user['id']; ?>" />
+			<?php endif; ?>
 			<input type="submit" name="saved" value="Lưu thông tin" />
 		</p>
 	</form>
