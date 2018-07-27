@@ -139,7 +139,7 @@ if (isset($_GET['role']) && !empty(trim($_GET['role']))) {
 	$options['role'] = trim($_GET['role']);
 }
 
-$roles = $EModel->getAll($options, $page, Option::get('row_per_page', 15));
+$roles = $EModel->get($options, $page, Option::get('row_per_page', 15));
 
 require_once TEMPLATEPATH . 'event.php';
 exit;
