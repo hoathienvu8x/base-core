@@ -14,7 +14,7 @@ create table if not exists users (
 
 truncate table users;
 
-insert into users (username, password, email, nickname, photo, role, state) values ('admin', '$P$BjvrSYhjj87yrv1IecYnr8Qv9ysjXf.', 'admin@localhost.com', 'avatars/admin_photo.jpg', 'administrator', 'checked');
+insert into users (username, password, email, nickname, photo, role, state) values ('admin', '$P$BjvrSYhjj87yrv1IecYnr8Qv9ysjXf.', 'admin@localhost.com','Mr Nhật', 'avatars/admin_photo.jpg', 'administrator', 'checked');
 
 drop table if exists options;
 create table if not exists options (
@@ -57,7 +57,7 @@ create table if not exists events (
 	event_alias varchar(64) not null default '',
 	event_name varchar(500) not null default '',
 	event_desc varchar(500) not null default '',
-	primary key (id)
+	primary key (id),
 	unique key alias (event_alias)
 ) engine=innodb charset=utf8;
 
