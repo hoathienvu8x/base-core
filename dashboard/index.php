@@ -21,6 +21,8 @@ if (isset($_GET['logout'])) {
 	exit;
 }
 
+Access::auth(); // Handle restrict to process with action
+
 $action_file = strtolower($action) . '.php';
 
 if (file_exists(SITE_ROOT . '/action/'.$action_file)) {
