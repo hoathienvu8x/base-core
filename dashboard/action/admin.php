@@ -18,8 +18,8 @@ if (isset($_POST['saved'])) {
 	if (!isset($_POST['nickname']) || empty($_POST['nickname'])) {
 		access_response(array(
 			'status' => 'error',
-			'direct' => Url::admin(array('msg' => User::ERROR_)),
-			'msg' => User::message(User::ERROR_)
+			'direct' => Url::admin(array('msg' => User::ERROR_FULLNAME_NONE)),
+			'msg' => User::message(User::ERROR_FULLNAME_NONE)
 		));
 		exit;
 	}
@@ -27,8 +27,8 @@ if (isset($_POST['saved'])) {
 	if (!isset($_POST['username']) && empty($_POST['username'])) {
 		access_response(array(
 			'status' => 'error',
-			'direct' => Url::admin(array('msg' => User::ERROR_)),
-			'msg' => User::message(User::ERROR_)
+			'direct' => Url::admin(array('msg' => User::ERROR_NAME_INVALID)),
+			'msg' => User::message(User::ERROR_NAME_INVALID)
 		));
 		exit;
 	}
@@ -166,7 +166,7 @@ if (isset($_GET['change'], $_GET['to'])) {
 			'direct' => Url::admin(array('msg' => User::ERROR_INVALID)),
 			'msg' => User::message(User::ERROR_INVALID)
 		));
-	} 
+	}
 	$to = preg_match('/^(y|n)$/i',trim($_GET['to'])) ? strtolower(trim($_GET['to'])) : 'y';
 	$user_id = $Model->update(array('role' => $to), $user);
 	if ($customer_id > 0) {
