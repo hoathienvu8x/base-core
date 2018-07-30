@@ -12,22 +12,38 @@ if (isset($_POST['saved'])) {
 	);
 	$hasError = false;
 	if (!is_mail($u_data['email'])) {
-		$_GET['msg'] = User::ERROR_EMAIL_INVALID;
-		$hasError = $hasError || true;
+		access_response(array(
+			'status' => 'error',
+			'direct' => Url::profile(array('msg' => User::ERROR_EMAIL_INVALID)),
+			'msg' => User::message(User::ERROR_EMAIL_INVALID)
+		));
+		exit;
 	}
 	if (empty($u_data['nickname'])) {
-		$_GET['msg'] = User::ERROR_FULLNAME_NONE;
-		$hasError = $hasError || true;
+		access_response(array(
+                        'status' => 'error',
+                        'direct' => Url::profile(array('msg' => User::ERROR_FULLNAME_NONE)),
+                        'msg' => User::message(User::ERROR_FULLNAME_NONE)
+                ));
+                exit;
 	}
 	if ($UModel->is_email_exists($u_data['email'], get_current_user_id())) {
-		$_GET['msg'] = User::ERROR_EMAIL_EXISTS;
-		$hasError = $hasError || true;
+		access_response(array(
+                        'status' => 'error',
+                        'direct' => Url::profile(array('msg' => User::ERROR_EMAIL_EXISTS)),
+                        'msg' => User::message(User::ERROR_EMAIL_EXISTS)
+                ));
+                exit;
 	}
 	if (isset($_POST['password']) && !empty($_POST['password'])) {
 		$pwd = trim($_POST['password']);
 		if (strlen($pwd) < 5) {
-			$_GET['msg'] = User::ERROR_PASSWORD_INVALID;
-			$hasError = $hasError || true;
+			access_response(array(
+                        	'status' => 'error',
+                        	'direct' => Url::profile(array('msg' => User::ERROR_PASSWORD_INVALID)),
+                        	'msg' => User::message(User::ERROR_PASSWORD_INVALID)
+                	));
+                	exit;
 		} else {
 			$PHPASS = new PasswordHash(8, true);
 			$u_data['password'] = $PHPASS->HashPassword($pwd);
@@ -43,10 +59,16 @@ if (isset($_POST['saved'])) {
 			));
 			exit;
 		} else {
-			$_GET['msg'] = User::ERROR_UPDATE;
+			access_response(array(
+				'status' => 'error',
+				'direct' => Url::profile(array('msg' => User::ERROR_UPDATE)),
+				'msg' => User::message(User::ERROR_UPDATE)
+			));
+			exit;
 		}
 	}
 }
+
 require_once TEMPLATEPATH . 'profile.php';
 exit;
 ?>
