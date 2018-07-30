@@ -7,8 +7,12 @@ header('Content-Type:application/json;charset=utf-8');
 
 Access::auth(); // Restrict process acction
 
+# Load dashboard data
+
+# Load notification
+
 access_response(array(
 	'status' => 'error',
-	'url' => SITE_URL,
+	'url' => '',
 	'msg' => 'Yêu cầu không hợp lệ'
 ));
