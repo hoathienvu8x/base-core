@@ -5,9 +5,14 @@ if (!defined('INAPP')) {
 }
 
 require_once TEMPLATEPATH . 'header.php';
+if (isset($_GET['msg'])) {
+	$msg = User::message(intval($_GET['msg']));
+	$msg_status = in_array(intval($_GET['msg']),array(User::ERROR_SAVED, User::ERROR_UPDATED, User::ERROR_DELETED, User::ERROR_CHANGED)) ? ' success' : '';
+	echo '<div class="error_notify'.$msg_status.'">'.$msg.'</div>';
+}
 ?>
 <div class="form-elements">
-	<form action="<?php echo Url::admin(); ?>" method="post">
+	<form action="<?php echo Url::admin($args); ?>" method="post">
 		<p>
 			Nickname<br />
 			<input type="text" name="nickname" value="<?php echo isset($user['nickname']) ? $user['nickname'] : ''; ?>" placeholder="Nickname" />
@@ -18,7 +23,7 @@ require_once TEMPLATEPATH . 'header.php';
 		</p>
 		<p>
 			Username<br />
-			<input type="text" name="username" value="<?php echo isset($user['username']) ? $user['username'] : ''; ?>" placeholder="User name" />
+			<input type="text" name="username" value="<?php echo isset($user['username']) ? $user['username'] : ''; ?>"<?php echo isset($args['edit']) ? ' readonly="readonly"' : ''; ?> placeholder="User name" />
 		</p>
 		<p>
 			Password<br />
