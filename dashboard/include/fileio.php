@@ -13,6 +13,29 @@ class FileIO {
 			define('CURRENT_DIR_UPLOAD', $currentDir);
 		}
 	}
-	public static function upload() {}
+	public static function upload($file) {
+		
+	}
+	public static function chunk($file) {
+
+	}
+	public static function handle() {
+		if (isset($_FILES['chunk'])) {
+			$retVal = self::chunk($_FILES['chunk']);
+			access_response($retVal);
+			exit;
+		}
+		if (isset($_FILE['file'])) {
+			$retVal = self::upload($_FILES['file']);
+			access_response($retVal);
+			exit;
+		}
+		access_response(array(
+			'status' => 'error',
+			'url' => SITE_URL,
+			'msg' => 'Vui lòng chọn vào tập tin cần tải !'
+		));
+		exit;
+	}
 }
 ?>
