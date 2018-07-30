@@ -149,6 +149,15 @@ function access_response($data) {
 		mDirect($data['direct']);
 		exit;
 	}
+	if (!defined('TEMPLATEPATH')) {
+		define('TEMPLATEPATH', SITE_ROOT . DIRECTORY_SEPARATOR . 'template');
+	}
+	if (!defined('SITE_URL')) {
+		define('SITE_URL', getSiteUrl());
+	}
+	if (!defined('TEMPLATEURL')) {
+		define('TEMPLATEURL', SITE_URL . 'template/');
+	}
 	require_once TEMPLATEPATH . '/header.php';
 	?>
 	<div id="dialog-error" class="dialog-<?php echo $data['status']; ?>">

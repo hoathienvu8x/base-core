@@ -13,7 +13,7 @@ class Database {
 		if (empty($DB)) {
 			access_response(array(
 				'status' => 'error',
-				'url' => SITE_URL,
+				'url' => getSiteUrl(),
 				'msg' => 'Application needs database store extentions !'
 			));
 		}
