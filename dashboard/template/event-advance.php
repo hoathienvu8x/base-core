@@ -12,7 +12,7 @@ require_once TEMPLATEPATH . 'header.php';
 			Event<br />
 			<input type="text" name="event_name" value="<?php echo isset($event['event_name']) ? $event['event_name'] : ''; ?>" placeholder="Event name" />
 		</p>
-		<?php if (Auth::is_supper()) : ?>
+		<?php if (Auth::is_super()) : ?>
                 <p>
                         Event alias<br />
                         <input type="text" name="event_alias" value="<?php echo isset($event['event_alias']) ? $event['event_alias'] : ''; ?>" placeholder="Event alias" />

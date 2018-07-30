@@ -12,7 +12,7 @@ require_once TEMPLATEPATH . 'header.php';
 			Role name<br />
 			<input type="text" name="role_name" value="<?php echo isset($role['role_name']) ? $role['role_name'] : ''; ?>" placeholder="Role name" />
 		</p>
-		<?php if (Auth::is_supper()) : ?>
+		<?php if (Auth::is_super()) : ?>
 		<p>
 			Role alias<br />
 			<input type="text" name="role_alias" value="<?php echo isset($role['role_alias']) ? $role['role_alias'] : ''; ?>" placeholder="Role alias" />
