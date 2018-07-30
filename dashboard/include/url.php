@@ -38,6 +38,9 @@ class Url {
 	public static function event($args = array()) {
 		return self::action('event', $args);
 	}
+	public static function grant($args = array()) {
+		return self::action('grant', $args);
+	}
 	public static function role($args = array()) {
 		return self::action('role', $args);
 	}
