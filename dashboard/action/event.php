@@ -17,7 +17,7 @@ if (isset($_POST['saved'])) {
 		access_response(array(
 			'status' => 'error',
 			'direct' => Url::event(array('msg' => Event::ERROR_NAME)),
-			'msg' => Event::message(Event::ERROR_NAME);
+			'msg' => Event::message(Event::ERROR_NAME)
 		));
 		exit;
 	}
