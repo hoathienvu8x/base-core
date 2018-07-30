@@ -1,5 +1,7 @@
 # Dashboard core
 
+![img](https://github.com/hoathienvu8x/base-core/blob/master/dashboard/app-logo-icon.png)
+
 Đây là một dự án mang tính chung chung chưa hoàn thiện tất cả các chức năng cần thiết vì vậy khi clone nó về cần thêm vào một số chức năng và viết mã cho nó
 
 Do thư mục này được tạo trong một resposive vì vậy cho nên khi clone cần clone nó như sau
