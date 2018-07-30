@@ -6,28 +6,35 @@ if (!defined('INAPP')) {
 $pageTitle = 'ACP :: Users';
 
 $Model = new User();
-
+$args = array();
+if (isset($_GET['edit']) && intval($_GET['edit']) > 0) {
+        $args['edit'] = intval($_GET['edit']);
+} else {
+        $args['mode'] = 'add';
+}
 if (isset($_POST['saved'])) {
 	$data = array(
 		'nickname' => '',
 		'username' => '',
-		'email' => '',
+		'email' => isset($_POST['email']) ? trim($_POST['email']) : '',
 		'role' => isset($_POST['role']) ? trim($_POST['role']) : 'member',
 		'state' => isset($_POST['state']) ? trim($_POST['state']) : 'register'
 	);
 	if (!isset($_POST['nickname']) || empty($_POST['nickname'])) {
+		$args['msg'] = User::ERROR_FULLNAME_NONE;
 		access_response(array(
 			'status' => 'error',
-			'direct' => Url::admin(array('msg' => User::ERROR_FULLNAME_NONE)),
+			'direct' => Url::admin($args),
 			'msg' => User::message(User::ERROR_FULLNAME_NONE)
 		));
 		exit;
 	}
 	$data['nickname'] = trim($_POST['nickname']);
-	if (!isset($_POST['username']) && empty($_POST['username'])) {
+	if (!isset($_POST['username']) || empty($_POST['username'])) {
+		$args['msg'] = User::ERROR_NAME_INVALID;
 		access_response(array(
 			'status' => 'error',
-			'direct' => Url::admin(array('msg' => User::ERROR_NAME_INVALID)),
+			'direct' => Url::admin($args),
 			'msg' => User::message(User::ERROR_NAME_INVALID)
 		));
 		exit;
@@ -39,17 +46,19 @@ if (isset($_POST['saved'])) {
 	}
 	if (isset($_POST['id']) && intval($_POST['id']) > 0) {
 		if ($Model->is_uname_exists($data['username'], intval($_POST['id']))) {
+			$args['msg'] = User::ERROR_NAME_EXISTS;
                         access_response(array(
                                 'status' => 'error',
-                                'direct' => Url::admin(array('msg' => User::ERROR_NAME_EXISTS)),
+                                'direct' => Url::admin($args),
                                 'msg' => User::message(User::ERROR_NAME_EXISTS)
                         ));
                         exit;
                 }
                 if (is_mail($data['email']) && $Model->is_email_exists($data['email'], intval($_POST['id']))) {
+			$args['msg'] = User::ERROR_EMAIL_EXISTS;
                         access_response(array(
                                 'status' => 'error',
-                                'direct' => Url::admin(array('msg' => User::ERROR_EMAIL_EXISTS)), 
+                                'direct' => Url::admin($args),
                                 'msg' => User::message(User::ERROR_EMAIL_EXISTS)
                         ));
                         exit;
@@ -63,70 +72,79 @@ if (isset($_POST['saved'])) {
 		}
 		$user_id = $Model->update($data, intval($_POST['id']));
 		if ($user_id > 0) {
+			$args['msg'] = User::ERROR_UPDATED;
 			access_response(array(
 				'status' => 'success',
-				'direct' => Url::admin(array('msg' => User::ERROR_UPDATED)),
+				'direct' => Url::admin($args),
 				'msg' => User::message(User::ERROR_UPDATED)
 			));
 		} else {
+			$args['msg'] = User::ERROR_UPDATE;
 			access_response(array(
 				'status' => 'error',
-				'direct' => Url::admin(array('msg' => User::ERROR_UPDATE)),
+				'direct' => Url::admin($args),
 				'msg' => User::message(User::ERROR_UPDATE)
 			));
 		}
 	} else {
-		if (empty($data['username']) || strlen($data['username'])) {
+		if (empty($data['username']) || strlen($data['username']) < 5) {
+			$args['msg'] = User::ERROR_NAME_INVALID;
 			access_response(array(
 				'status' => 'error',
-				'direct' => Url::admin(array('msg' => User::ERROR_NAME_INVALID)),
+				'direct' => Url::admin($args),
 				'msg' => User::message(User::ERROR_NAME_INVALID)
 			));
 			exit;
 		}
 		if (!is_mail($data['email'])) {
+			$args['msg'] = User::ERROR_EMAIL_INVALID;
 			access_response(array(
                                 'status' => 'error',
-                                'direct' => Url::admin(array('msg' => User::ERROR_EMAIL_INVALID)),
+                                'direct' => Url::admin($args),
                                 'msg' => User::message(User::ERROR_EMAIL_INVALID)
                         ));
                         exit;
 		}
 		if (!isset($data['password'])) {
+			$args['msg'] = User::ERROR_PASSWORD_INVALID;
 			access_response(array(
                                 'status' => 'error',
-                                'direct' => Url::admin(array('msg' => User::ERROR_PASSWORD_INVALID)),
+                                'direct' => Url::admin($args),
                                 'msg' => User::message(User::ERROR_PASSWORD_INVALID)
                         ));
                         exit;
 		}
 		if ($Model->is_uname_exists($data['username'])) {
+			$args['msg'] = User::ERROR_NAME_EXISTS;
 			access_response(array(
 				'status' => 'error',
-				'direct' => Url::admin(array('msg' => User::ERROR_NAME_EXISTS)),
+				'direct' => Url::admin($args),
 				'msg' => User::message(User::ERROR_NAME_EXISTS)
 			));
 			exit;
 		}
 		if ($Model->is_email_exists($data['email'])) {
+			$args['msg'] = User::ERROR_EMAIL_EXISTS;
 			access_response(array(
                                 'status' => 'error',
-                                'direct' => Url::admin(array('msg' => User::ERROR_EMAIL_EXISTS)), 
+                                'direct' => Url::admin($args),
                                 'msg' => User::message(User::ERROR_EMAIL_EXISTS)
                         ));
                         exit;
 		}
 		$user_id = $Model->add($data);
 		if ($user_id > 0) {
+			$args['msg'] = User::ERROR_SAVED;
 			access_response(array(
 				'status' => 'success',
-				'direct' => Url::admin(array('msg' => User::ERROR_SAVED)),
+				'direct' => Url::admin($args),
 				'msg' => User::message(User::ERROR_SAVED)
 			));
 		} else {
+			$args['msg'] = User::ERROR_SAVE;
 			access_response(array(
 				'status' => 'error',
-				'direct' => Url::admin(array('msg' => User::ERROR_SAVE)),
+				'direct' => Url::admin($args),
 				'msg' => User::message(User::ERROR_SAVE)
 			));
 		}
@@ -212,7 +230,7 @@ $options = array();
 if (isset($_GET['keyword']) && !empty($_GET['keyword'])) {
 	$options['keyword'] = trim($_GET['keyword']);
 }
-$orderBy = isset($_GET['orderby']) && !empty($_GET['orderby']) ? strtolower(trim($_GET['orderby'])) : 'name'; 
+$orderBy = isset($_GET['orderby']) && !empty($_GET['orderby']) ? strtolower(trim($_GET['orderby'])) : 'name';
 $order = isset($_GET['order']) && !empty($_GET['order']) ? strtolower(trim($_GET['order'])) : 'asc';
 $options['orderby'] = $orderBy;
 $options['order'] = $order;
