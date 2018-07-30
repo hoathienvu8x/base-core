@@ -8,9 +8,9 @@ define('DB_HOST','localhost');
 //mysql database user
 define('DB_USER','root');
 //database password
-define('DB_PASSWD','9512357');
+define('DB_PASSWD','none_leave_empty');
 //database name
-define('DB_NAME','chaocaphedb');
+define('DB_NAME','dashboard');
 //database prefix
 define('DB_PREFIX','');
 //auth key
