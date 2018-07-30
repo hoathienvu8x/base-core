@@ -37,4 +37,11 @@
 		$('body').addClass('fixed');
 		$('#aside').addClass('show');
 	});
+	$('input[name="photo"]').on('change', function() {
+		
+	});
+	$(document).on('click','a.remove',function(e) {
+
+		return false;
+	})
 })(jQuery);
