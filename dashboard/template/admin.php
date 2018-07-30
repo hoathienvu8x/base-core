@@ -15,8 +15,8 @@ if (isset($_GET['msg'])) {
 <thead>
 <tr>
 	<th><input type="checkbox" name="chkAll" value="1" /></th>
-	<th><a href="<?php echo Url::admin(); ?>">NickName</a></th>
-	<th><a href="<?php echo Url::admin(); ?>">Username</a></th>
+	<th><a href="<?php echo Url::admin(array('orderby' => 'name', 'order' => ($order == 'asc' ? 'desc' : 'asc'))); ?>">NickName</a></th>
+	<th><a href="<?php echo Url::admin(array('orderby' => 'username', 'order' => ($order == 'asc' ? 'desc' : 'asc'))); ?>">Username</a></th>
 	<th>Email</th>
 	<th>&nbsp;</th>
 </tr>
