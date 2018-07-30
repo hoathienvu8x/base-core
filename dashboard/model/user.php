@@ -6,7 +6,6 @@ if (!defined('INAPP')) {
 class User {
 	const ERROR_NAME_NOTEXIST = 1;
 	const ERROR_EMAIL_NOEXISTS = 2;
-	const ERROR_LOCKED = 3;
 	const ERROR_INVALID = 4;
 	const ERROR_NAME_EXISTS = 5;
 	const ERROR_NAME_INVALID = 6;
