@@ -5,7 +5,7 @@ if (!defined('INAPP')) {
 }
 class User {
 	const ERROR_NAME_NOTEXIST = 1;
-	const ERROR_EMAIL_NOEXISTS = 2;
+	const ERROR_EMAIL_NOTEXISTS = 2;
 	const ERROR_INVALID = 4;
 	const ERROR_NAME_EXISTS = 5;
 	const ERROR_NAME_INVALID = 6;
@@ -34,6 +34,12 @@ class User {
 	public static function message($code) {
 		$msg = 'Hệ thống không hiểu lỗi này !';
 		switch ($code) {
+			case self::ERROR_UPDATE:
+				$msg = 'Cập nhật thất bại !';
+				break;
+			case self::ERROR_UPDATED:
+				$msg = 'Cập nhật thành công !';
+				break;
 			case self::ERROR_CHANGED:
 				$msg = 'Chuyển quyền thành công !';
 				break;
@@ -49,10 +55,10 @@ class User {
 			case self::ERROR_NAME_EXISTS:
 				$msg = 'Tên đăng nhập này đã tồn tại !';
 				break;
-			case self::ERROR_NAME_VALID:
+			case self::ERROR_NAME_INVALID:
 				$msg = 'Tên đăng nhập không hợp lệ !';
 				break;
-			case self::ERROR_EMAIL_NOTEXIST:
+			case self::ERROR_EMAIL_NOTEXISTS:
 				$msg = 'Email không tồn tại !';
 				break;
 			case self::ERROR_EMAIL_EXISTS:
@@ -152,7 +158,7 @@ class User {
 			$items[] = $isSyntax ? "$key = $value" : "$key = '".self::$db->escape_string($value)."'";
 		}
 		self::$db->query("update " . DB_PREFIX . "users set ".implode(',',$items)." where id = '$id'");
-		if (self::$db->affected_rows() > 0) {
+		if (self::$db->affected_rows() >= 0) {
 			return $id;
 		}
 		return -1;
