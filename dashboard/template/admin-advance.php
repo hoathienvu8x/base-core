@@ -18,7 +18,7 @@ require_once TEMPLATEPATH . 'header.php';
 		</p>
 		<p>
 			Username<br />
-			<input type="text" name="username" value="<?php echo isset($user['username']) ? $user['username'] : ''; ?>" placeholder="User name" readonly="readonly" />
+			<input type="text" name="username" value="<?php echo isset($user['username']) ? $user['username'] : ''; ?>" placeholder="User name" />
 		</p>
 		<p>
 			Password<br />
