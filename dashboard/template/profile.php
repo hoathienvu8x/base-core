@@ -16,7 +16,7 @@ if (isset($_GET['msg']) && is_numeric($_GET['msg'])) {
 }
 ?>
 <div class="form-elements">
-	<form action="<?php echo Url::profile();?>" method="post">
+	<form action="<?php echo Url::profile();?>" method="post" enctype="multipart/form-data">
 		<p>
 			Họ và tên:<br />
 			<input type="text" name="nickname" value="<?php echo isset($u_data['nickname']) ? $u_data['nickname'] : get_user_data('nickname',''); ?>" /><br />
@@ -26,6 +26,12 @@ if (isset($_GET['msg']) && is_numeric($_GET['msg'])) {
 			<input type="password" name="password" value="" /><br />
 			Thư điện tử:<br />
 			<input type="text" name="email" value="<?php echo isset($u_data['email']) ? $u_data['email'] : get_user_data('email',''); ?>" /><br />
+			Hình đại diện:<br />
+			<?php $uphoto = isset($u_data['photo']) ? $u_data['photo'] : get_user_data('photo',''); ?>
+			<?php if (!empty($uphoto)) : ?>
+                        <span id="user-photo"><img src="<?php echo UPLOADURL; ?>avatars/<?php echo $uphoto; ?>" /></span>
+                        <?php endif; ?>
+			<input type="file" name="photo" placeholder="Hình đại diện" />
 		</p>
 		<p class="bottom">
 			<input type="submit" name="saved" value="Cập nhật" />

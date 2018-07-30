@@ -12,7 +12,7 @@ if (isset($_GET['msg'])) {
 }
 ?>
 <div class="form-elements">
-	<form action="<?php echo Url::admin($args); ?>" method="post">
+	<form action="<?php echo Url::admin($args); ?>" method="post" enctype="multipart/form-data">
 		<p>
 			Nickname<br />
 			<input type="text" name="nickname" value="<?php echo isset($user['nickname']) ? $user['nickname'] : ''; ?>" placeholder="Nickname" />
