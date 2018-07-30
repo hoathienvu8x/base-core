@@ -17,7 +17,7 @@ if (isset($_POST['saved'])) {
 		access_response(array(
 			'status' => 'error',
 			'direct' => Url::role(array('msg' => Role::ERROR_NAME)),
-			'msg' => Role::message(Role::ERROR_NAME);
+			'msg' => Role::message(Role::ERROR_NAME)
 		));
 		exit;
 	}
