@@ -54,10 +54,10 @@ class Option {
 			case 'balance':
 				$row['option_value'] = floatval($row['option_value']);
 				break;
-			case 'app_agent':
-				$row['option_value'] = str_replace('{VERSION}',self::CORE_VERSION, $row['option_value']);
+			case 'row_per_page':
+				$row['option_value'] = intval($row['option_value']);
 				break;
-			case 'app_ids': case 'roles':
+			case 'roles':
 				$row['option_value'] = @unserialize(stripslashes($row['option_value']));
 				if (!$row['option_value']) {
 					$row['option_value'] = array();
@@ -83,7 +83,7 @@ class Option {
 		if (isset($options['name'])) {
 			$sql .= " order by option_desc ". $options['name'];
 		} else {
-			$sql .= " order by option_desc asc"
+			$sql .= " order by option_desc asc";
 		}
 		$sql .= " limit ".(($page - 1) * $limit).", ".$limit;
 		$rows = array();
