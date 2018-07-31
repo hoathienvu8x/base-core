@@ -8,7 +8,12 @@ require_once Xtemplate::get( 'header' );
 ?>
 <table>
 <thead>
-
+	<tr>
+		<th><input type="checkbox" name="chkAll" value="1" /></th>
+		<th>Option</th>
+		<th>Value</th>
+		<th>&nbsp;</th>
+	</tr>
 </thead>
 <tbody>
 <?php foreach($options as $row) : ?>
