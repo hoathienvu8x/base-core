@@ -74,7 +74,10 @@ function make_alias(str, c) {
 		
 	});
 	$(document).on('click','a.remove',function(e) {
-
+		
 		return false;
-	})
+	});
+	$(document).on('click', 'input[name="chkAll"]', function() {
+		$('input[type="checkbox"]').not(':disabled').prop('checked', this.checked);
+	});
 })(jQuery);
