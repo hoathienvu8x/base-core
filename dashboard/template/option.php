@@ -14,7 +14,7 @@ require_once Xtemplate::get( 'header' );
 <?php foreach($options as $row) : ?>
 <tr>
 	<?php $is_system = Option::is_system($row['option_name']); ?>
-	<td><input type="checkbox" name="checked[]"<?php echo $is_system ? ' disable="disable"' : ''; ?> value="<?php echo $row['option_name'];?>" /></td>
+	<td><input type="checkbox" name="checked[]"<?php echo $is_system ? ' disabled="disabled"' : ''; ?> value="<?php echo $row['option_name'];?>" /></td>
 	<td><?php echo $row['option_desc']; ?></td>
 	<td><?php echo Option::option_value($row); ?></td>
 	<td>
