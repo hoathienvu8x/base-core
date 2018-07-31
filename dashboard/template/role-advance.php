@@ -5,6 +5,12 @@ if (!defined('INAPP')) {
 }
 
 require_once Xtemplate::get( 'header' );
+if (isset($_GET['msg'])) {
+        $msg = Role::message(intval($_GET['msg']));
+        $msg_status = in_array(intval($_GET['msg']),array(Role::ERROR_SAVED, Role::ERROR_UPDATED, Role::ERROR_DELETED)) ? ' success' : '';
+        echo '<div class="error_notify'.$msg_status.'">'.$msg.'</div>';
+}
+
 ?>
 <div class="form-elements">
 	<form action="<?php echo Url::role(); ?>" method="post">

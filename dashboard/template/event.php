@@ -5,6 +5,12 @@ if (!defined('INAPP')) {
 }
 
 require_once Xtemplate::get( 'header' );
+if (isset($_GET['msg'])) {
+        $msg = Event::message(intval($_GET['msg']));
+        $msg_status = in_array(intval($_GET['msg']),array(Event::ERROR_SAVED, Event::ERROR_UPDATED, Event::ERROR_DELETED)) ? ' success' : '';
+        echo '<div class="error_notify'.$msg_status.'">'.$msg.'</div>';
+}
+
 ?>
 
 <?php foreach($events as $row) : ?>
