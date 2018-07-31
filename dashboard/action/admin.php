@@ -204,7 +204,7 @@ if (isset($_GET['change'], $_GET['to'])) {
 
 if (isset($_GET['mode']) && strtolower($_GET['mode']) == 'add') {
 	$pageTitle = 'ACP :: New User';
-	require_once TEMPLATEPATH . 'admin-advance.php';
+	require_once Xtemplate::get('admin-advance');
 	exit;
 }
 
@@ -219,7 +219,7 @@ if (isset($_GET['edit']) && intval($_GET['edit']) > 0) {
 		));
 		exit;
 	}
-	require_once TEMPLATEPATH . 'admin-advance.php';
+	require_once Xtemplate::get('admin-advance');
 	exit;
 }
 
@@ -237,6 +237,6 @@ $options['order'] = $order;
 
 $users = $Model->get($options, $page, Option::get('row_per_page', 20));
 
-require_once TEMPLATEPATH . 'admin.php';
+require_once Xtemplate::get('admin');
 exit;
 ?>
