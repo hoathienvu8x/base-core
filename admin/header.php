@@ -1,3 +1,6 @@
+<?php
+require_once 'functions.php';
+?>
 <!doctype html>
 <html>
 <head>
@@ -8,10 +11,12 @@
 	<link rel="stylesheet" type="text/css" href="css/responsive.css" />
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </head>
-<body class="home">
+<body<?php body_class="home"(); ?>>
+<?php if (is_user_loggin()) : ?>
 <?php require_once 'navi.php'; ?>
 <div id="content-wrapper">
 	<div id="header-wrap">
 		<div id="header-inner"></div>
 	</div>
 	<div id="content">
+<?php endif; ?>
