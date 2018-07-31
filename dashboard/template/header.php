@@ -15,6 +15,7 @@ if (!defined('INAPP')) {
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0, minimal-ui" />
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="<?php echo TEMPLATEURL;?>css/style.css" />
+	<script>var ajaxurl = '<?php echo SITE_URL; ?>ajax.php';</script>
 </head>
 <body<?php echo Auth::isLogged() ? ' class="logged'.(isset($_GET['action']) && !empty($_GET['action']) ? ' '.strtolower($_GET['action']) : '').'"' : '';?>>
 <?php

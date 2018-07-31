@@ -15,6 +15,7 @@ if (isset($_GET['msg']) && is_numeric($_GET['msg'])) {
 	echo '<div class="error_notify'.$msg_status.'">'.$msg.'</div>';
 }
 ?>
+<script>var BYTES_PER_CHUNK = <?php echo BYTES_PER_CHUNK; ?>, uploadurl = '<?php echo SITE_URL; ?>upload.php';</script>
 <div class="form-elements">
 	<form action="<?php echo Url::profile();?>" method="post" enctype="multipart/form-data">
 		<p>
