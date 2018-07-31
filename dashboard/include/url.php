@@ -4,8 +4,18 @@ if (!defined('INAPP')) {
 	exit;
 }
 class Url {
-	public static function home() {
-		return SITE_URL;
+	public static function home($args = array()) {
+		$url = SITE_URL;
+		$query_string = array();
+                foreach($args as $key => $val) {
+                        $query_string[] = "$key=$val";
+                }
+                if (!empty($query_string)) {
+                        $query_string = '?'.implode('&',$query_string);
+                } else {
+                        $query_string = '';
+                }
+		return $url . $query_string;
 	}
 	public static function action($action, $args = array()) {
 		$url = SITE_URL;
