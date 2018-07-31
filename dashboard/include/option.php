@@ -19,6 +19,7 @@ class Option {
 	const ERROR_SYSTEM = 12;
 	const ERROR_NOTEXISTS = 13;
 	const ERROR_EXISTS = 14;
+	private static $systems = array('login_code','row_per_page','balance','roles','site_url');
 	public static function message($code) {
 		$msg = 'Hệ thống không hiểu lỗi này !';
 		switch ($code) {
@@ -38,6 +39,20 @@ class Option {
 			case self::ERROR_EXISTS : $msg = 'Tuỳ chọn này đã tồn tại trên hệ thống !'; break;
 		}
 		return $msg;
+	}
+	public static function is_system($option) {
+		return in_array($option, self::$systems);
+	}
+	public static function option_value($row) {
+		$value = '[Object Object]';
+		switch($row['option_name']) {
+			case 'login_code' : $value = $row['option_value'] == 'y' ? 'Có' : 'Không'; break;
+			case 'roles' : $value = '[Object Array]'; break;
+			case 'balance' : case 'row_per_page': $value = intval($row['option_value']); break;
+			case 'site_url' : $value = trim($row['option_value']); break;
+			default: $value = empty($row['option_value']) ? 'Chưa đặt giá trị' : '[Object String]'; break;
+		}
+		return $value;
 	}
 	public static function get($option, $default = false) {
 		if (empty($option)) {
