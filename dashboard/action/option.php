@@ -125,7 +125,7 @@ if (isset($_GET['del']) && intval($_GET['del']) > 0) {
 		$args['msg'] = Option::ERROR_SYSTEM;
 		access_response(array(
 			'status' => 'error',
-			'url' => Url::option($args),
+			'direct' => Url::option($args),
 			'msg' => Option::message(Option::ERROR_SYSTEM)
 		));
 		exit;
