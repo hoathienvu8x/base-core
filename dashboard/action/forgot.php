@@ -63,5 +63,5 @@ if (isset($_POST['field_chk'])) {
 	}
 }
 
-require_once TEMPLATEPATH . 'forgot.php';
+require_once Xtemplate::get( 'forgot' );
 ?>

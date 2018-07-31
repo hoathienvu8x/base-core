@@ -6,6 +6,6 @@ if (!defined('INAPP')) {
 $pageTitle = 'ACP :: Quản lý hóa đơn';
 
 
-require_once TEMPLATEPATH . 'index.php';
+require_once Xtemplate::get( 'index' );
 exit;
 ?>

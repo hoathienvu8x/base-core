@@ -69,6 +69,6 @@ if (isset($_POST['saved'])) {
 	}
 }
 
-require_once TEMPLATEPATH . 'profile.php';
+require_once Xtemplate::get( 'profile' );
 exit;
 ?>

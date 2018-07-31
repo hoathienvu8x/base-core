@@ -95,13 +95,13 @@ if (isset($_GET['edit']) && intval($_GET['edit']) > 0) {
 		exit;
 	}
 	$pageTitle = 'ACP :: Cập nhật sự kiện';
-	require_once TEMPLATEPATH . 'event-advance.php';
+	require_once Xtemplate::get( 'event-advance' );
 	exit;
 }
 
 if (isset($_GET['mode']) && strtolower($_GET['mode']) == 'add') {
 	$pageTitle = 'ACP :: Thêm sự kiện';
-	require_once TEMPLATEPATH . 'event-advance.php';
+	require_once Xtemplate::get( 'event-advance' );
 	exit;
 }
 
@@ -141,6 +141,6 @@ if (isset($_GET['role']) && !empty(trim($_GET['role']))) {
 
 $roles = $EModel->get($options, $page, Option::get('row_per_page', 15));
 
-require_once TEMPLATEPATH . 'event.php';
+require_once Xtemplate::get( 'event' );
 exit;
 ?>

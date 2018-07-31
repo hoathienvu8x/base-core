@@ -13,7 +13,7 @@ if (isset($_POST['username'],$_POST['password'])) {
 			'direct' => Url::home(array('msg' => Auth::ERROR_VALID)),
 			'msg' => Auth::message(Auth::ERROR_VALID)
 		));
-		exit();
+		exit;
 	}
 	if (empty($password)) {
 		access_response(array(
@@ -21,7 +21,7 @@ if (isset($_POST['username'],$_POST['password'])) {
                         'direct' => Url::home(array('msg' => Auth::ERROR_VALID)),
                         'msg' => Auth::message(Auth::ERROR_VALID)
                 ));
-		exit();
+		exit;
 	}
 	$result = Auth::checkLogin($username, $password,$img_code,'n');
 	if ($result != Auth::ERROR_NONE) {
@@ -30,7 +30,7 @@ if (isset($_POST['username'],$_POST['password'])) {
                         'direct' => Url::home(array('msg' => $result)),
                         'msg' => Auth::message($result)
                 ));
-		exit();
+		exit;
 	}
 	Auth::setAuthCookie($username, $ispersis);
 	access_response(array(
@@ -40,6 +40,6 @@ if (isset($_POST['username'],$_POST['password'])) {
         ));
 	exit;
 }
-require_once TEMPLATEPATH . 'login.php';
+require_once Xtemplate::get( 'login' );
 exit;
 ?>
