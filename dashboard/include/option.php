@@ -5,6 +5,38 @@ if (!defined('INAPP')) {
 }
 class Option {
 	const CORE_VERSION = '1.0.0';
+	const ERROR_SAVED = 1;
+	const ERROR_SAVE = 2;
+	const ERROR_UPDATED = 3;
+	const ERROR_UPDATE = 4;
+	const ERROR_DELETED = 5;
+	const ERROR_DELETE = 6;
+	const ERROR_LOADED = 7;
+	const ERROR_LOAD = 8;
+	const ERROR_NAME = 9;
+	const ERROR_INVALID = 10;
+	const ERROR_VALUE = 11;
+	const ERROR_SYSTEM = 12;
+	const ERROR_NOTEXISTS = 13;
+	public static function message($code) {
+		$msg = 'Hệ thống không hiểu lỗi này !';
+		switch ($code) {
+			case self::ERROR_SAVED : $msg = 'Lưu tuỳ chọn thành công !'; break;
+			case self::ERROR_SAVE : $msg = 'Lưu tuỳ chọn thất bại !'; break;
+			case self::ERROR_UPDATED : $msg = 'Cập nhật tuỳ chọn thành công !'; break;
+			case self::ERROR_UPDATE : $msg = 'Cập nhật tuỳ chọn thất bại !'; break;
+			case self::ERROR_DELETED : $msg = 'Xoá tuỳ chọn thành công !'; break;
+			case self::ERROR_DELETE : $msg = 'Xoá tuỳ chọn thất bại !'; break;
+			case self::ERROR_LOADED : $msg = 'Đưa và danh sách tự động tải thành công !'; break;
+			case self::ERROR_LOAD : $msg = 'Không thể đưa tuỳ chọn vào tự động tải !'; break;
+			case self::ERROR_NAME : $msg = 'Tên tuỳ chọn không hợp lệ'; break;
+			case self::ERROR_INVALID : $msg = 'Vui lòng nhập vào thông tin !'; break;
+			case self::ERROR_VALUE : $msg = 'Giá trị tuỳ chọn không hợp lệ !'; break;
+			case self::ERROR_NOTEXISTS : $msg = 'Tuỳ chọn này không tồn tại trên hệ thống !'; break;
+			case self::ERROR_SYSTEM : $msg = 'Tuỳ chọn này là hệ thống không xoá được !'; break;
+		}
+		return $msg;
+	}
 	public static function get($option, $default = false) {
 		if (empty($option)) {
 			return $default;

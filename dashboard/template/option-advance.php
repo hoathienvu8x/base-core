@@ -5,6 +5,12 @@ if (!defined('INAPP')) {
 }
 
 require_once TEMPLATEPATH . 'header.php';
+if (isset($_GET['msg'])) {
+	$code = intval($_GET['msg']);
+	$msg = Option::message(intval($code);
+	$msg_status = in_array($code, array(Option::ERROR_SAVED, Option::ERROR_UPDATED, Option::ERROR_DELETED)) ? ' success' : '';
+	echo '<div class="error_notify'.$msg_status.'">'.$msg.'</div>';
+}
 ?>
 <div class="form-elements">
 	<form action="<?php echo Url::option($args); ?>" method="post">
@@ -21,9 +27,6 @@ require_once TEMPLATEPATH . 'header.php';
 			<textarea name="option_desc" placeholder="Description"><?php echo isset($option['option_desc']) ? $option['option_desc'] : ''; ?></textarea>
 		</p>
 		<p class="bottom">
-			<?php if (isset($role['id']) && intval($role['id']) > 0) : ?>
-			<input type="hidden" name="id" value="<?php echo $role['id']; ?>" />
-			<?php endif; ?>
 			<input type="submit" name="saved" value="Lưu thông tin" />
 		</p>
 	</form>
