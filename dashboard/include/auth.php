@@ -24,7 +24,7 @@ class Auth {
         	}
         	return true;
 	}
-	public static function message($core) {
+	public static function message($code) {
 		$msg = '';
 		switch($code) {
 			case self::ERROR_MUST_BE_LOGIN:
