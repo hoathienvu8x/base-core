@@ -1,7 +1,6 @@
 <?php
 define ( 'INAPP', true );
 require_once dirname ( __FILE__ ) . '/init.php';
-define('BYTES_PER_CHUNK', 1048576);
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST");
