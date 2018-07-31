@@ -29,7 +29,7 @@ if (isset($_GET['msg']) && is_numeric($_GET['msg'])) {
 			Hình đại diện:<br />
 			<?php $uphoto = isset($u_data['photo']) ? $u_data['photo'] : get_user_data('photo',''); ?>
 			<?php if (!empty($uphoto)) : ?>
-                        <span id="user-photo"><img src="<?php echo UPLOADURL; ?>avatars/<?php echo $uphoto; ?>" /></span>
+                        <span id="user-photo"><img src="<?php echo UPLOADURL; ?>avatars/<?php echo $uphoto; ?>" /></span><br />
                         <?php endif; ?>
 			<input type="file" name="photo" placeholder="Hình đại diện" />
 		</p>

@@ -51,7 +51,7 @@ if (isset($_GET['msg'])) {
 		<p>
 			Photo<br />
 			<?php if (isset($user['photo']) && !empty($user['photo'])) : ?>
-			<span id="user-photo"><img src="<?php echo UPLOADURL; ?>avatars/<?php echo $user['photo']; ?>" /></span>
+			<span id="user-photo"><img src="<?php echo UPLOADURL; ?>avatars/<?php echo $user['photo']; ?>" /></span><br />
 			<?php endif; ?>
 			<input type="file" name="photo" placeholder="Photo" />
 		</p>
