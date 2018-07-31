@@ -151,6 +151,6 @@ if (isset($_GET['byname']) && preg_match('/^(asc|desc)$/i', trim($_GET['byname']
 
 $roles = Option::getAll($options, $page, Option::get('row_per_page', 15));
 
-require_once TEMPLATEPATH . 'role.php';
+require_once TEMPLATEPATH . 'option.php';
 exit;
 ?>
