@@ -32,7 +32,7 @@ if (isset($_GET['msg']) && is_numeric($_GET['msg'])) {
 			<?php if (!empty($uphoto)) : ?>
                         <span id="user-photo"><img src="<?php echo UPLOADURL; ?>avatars/<?php echo $uphoto; ?>" /></span><br />
                         <?php endif; ?>
-			<input type="file" name="photo" placeholder="Hình đại diện" />
+			<input type="file" name="photo" placeholder="Hình đại diện" accept="image/x-png,image/gif,image/jpeg" />
 		</p>
 		<p class="bottom">
 			<input type="submit" name="saved" value="Cập nhật" />

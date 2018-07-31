@@ -54,7 +54,7 @@ if (isset($_GET['msg'])) {
 			<?php if (isset($user['photo']) && !empty($user['photo'])) : ?>
 			<span id="user-photo"><img src="<?php echo UPLOADURL; ?>avatars/<?php echo $user['photo']; ?>" /></span><br />
 			<?php endif; ?>
-			<input type="file" name="photo" placeholder="Photo" />
+			<input type="file" name="photo" placeholder="Photo" accept="image/x-png,image/gif,image/jpeg" />
 		</p>
 		<p class="bottom">
 			<?php if (isset($user['id']) && intval($user['id']) > 0) : ?>
