@@ -70,7 +70,20 @@ function make_alias(str, c) {
 		$('body').addClass('fixed');
 		$('#aside').addClass('show');
 	});
-	$('input[name="photo"]').on('change', function() {
+	$('input[type="file"]').change( function() {
+		var name = $(this).attr('name');
+		if (name == 'photo') {
+			var data = {
+				action : 'avatar'
+			};
+			var allowFiles = ['image/png','image/jpg','image/gif','image/jpeg'];
+		} else {
+			var data = {
+				action : 'file'
+			};
+			var allowFiles = ["text/html","text/plain","image/bmp","image/gif","image/jpeg","image/png","image/vnd.microsoft.icon","video/mpeg","video/quicktime","video/x-msvideo","video/x-ms-wmv","audio/mpeg","audio/x-pn-realaudio","audio/x-pn-realaudio-plugin","audio/x-realaudio","audio/x-wav","text/css","application/zip","application/pdf","application/msword","application/octet-stream","application/vnd.ms-excel","application/vnd.ms-powerpoint","application/vnd.wap.wbxml","application/vnd.wap.wmlc","application/vnd.wap.wmlscriptc","application/x-dvi","application/x-futuresplash","application/x-gtar","application/x-gzip","application/x-javascript","application/x-shockwave-flash","application/x-tar","application/xhtml+xml","audio/basic","audio/midi","audio/x-mpegurl","image/tiff","text/rtf","text/vnd.wap.wml","text/vnd.wap.wmlscript","text/xml"];
+		}
+		var file = this.files[0];
 		
 	});
 	$(document).on('click','a.remove',function(e) {
