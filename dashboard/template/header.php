@@ -17,9 +17,9 @@ if (!defined('INAPP')) {
 	<link rel="stylesheet" type="text/css" media="all" href="<?php echo TEMPLATEURL;?>css/style.css" />
 	<script>var ajaxurl = '<?php echo SITE_URL; ?>ajax.php';</script>
 </head>
-<body<?php echo Auth::isLogged() ? ' class="logged'.(isset($_GET['action']) && !empty($_GET['action']) ? ' '.strtolower($_GET['action']) : '').'"' : '';?>>
+<body<?php echo is_user_logged_in() ? ' class="logged'.(isset($_GET['action']) && !empty($_GET['action']) ? ' '.strtolower($_GET['action']) : '').'"' : '';?>>
 <?php
-if (Auth::isLogged()){
+if (is_user_logged_in()){
 	?><div id="nav-wrap" class="nav-wrap"></div><?php
 	require_once Xtemplate::get( 'navi' );
 	?>

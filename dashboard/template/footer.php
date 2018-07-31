@@ -4,8 +4,8 @@ if (!defined('INAPP')) {
 	exit;
 }
 ?>
-<div class="admin-footer<?php echo Auth::isLogged() ? ' is-logged' : '';?>">&copy; 2018<?php echo date('Y') > 2018 ? '-'.date('y') : '';?> AnhChangThoDe22145 All Rights Reserved</div>
-<?php if( Auth::isLogged() ) : ?>
+<div class="admin-footer<?php echo is_user_logged_in() ? ' is-logged' : '';?>">&copy; 2018<?php echo date('Y') > 2018 ? '-'.date('y') : '';?> AnhChangThoDe22145 All Rights Reserved</div>
+<?php if( is_user_logged_in() ) : ?>
 </div>
 <script src="<?php echo TEMPLATEURL;?>js/script.js"></script>
 <?php endif; ?>
