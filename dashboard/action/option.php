@@ -120,7 +120,17 @@ if (isset($_GET['mode']) && strtolower($_GET['mode']) == 'add') {
 }
 
 if (isset($_GET['del']) && intval($_GET['del']) > 0) {
-	$retVal = Option::delete(trim($_GET['del']));
+	$option = trim($_GET['del']);
+	if (Option::is_system($option)) {
+		$args['msg'] = Option::ERROR_SYSTEM;
+		access_response(array(
+			'status' => 'error',
+			'url' => Url::option($args),
+			'msg' => Option::message(Option::ERROR_SYSTEM)
+		));
+		exit;
+	}
+	$retVal = Option::delete($option);
 	if ($retVal == true) {
 		$args['msg'] = Option::ERROR_DELETED;
 		access_response(array(

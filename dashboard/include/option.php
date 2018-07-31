@@ -50,7 +50,13 @@ class Option {
 			case 'roles' : $value = '[Object Array]'; break;
 			case 'balance' : case 'row_per_page': $value = intval($row['option_value']); break;
 			case 'site_url' : $value = trim($row['option_value']); break;
-			default: $value = empty($row['option_value']) ? 'Chưa đặt giá trị' : '[Object String]'; break;
+			default: 
+				if (preg_match('/a\:[0-9]+\{/i',$row['option_value'])) {
+					$value = '[Object Array]';
+				} else {
+					$value = empty($row['option_value']) ? 'Chưa đặt giá trị' : '[Object String]'; 
+				}
+				break;
 		}
 		return $value;
 	}
