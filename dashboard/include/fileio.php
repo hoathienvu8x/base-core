@@ -13,6 +13,13 @@ class FileIO {
 			define('CURRENT_DIR_UPLOAD', $currentDir);
 			$currentPath = str_replace(UPLOADPATH . DIRECTORY_SEPARATOR, '', $currentDir);
 			define('CURRENT_DIR_URL', str_replace(DIRECTORY_SEPARATRO, '/', $currentPath));
+		} else {
+			access_response(array(
+				'status' => 'error',
+				'url' => '',
+				'msg' => 'Lỗi tạo thư mục chứa tập tin tải lên'
+			));
+			exit;
 		}
 	}
 	public static function upload($file) {
