@@ -18,6 +18,7 @@ class Option {
 	const ERROR_VALUE = 11;
 	const ERROR_SYSTEM = 12;
 	const ERROR_NOTEXISTS = 13;
+	const ERROR_EXISTS = 14;
 	public static function message($code) {
 		$msg = 'Hệ thống không hiểu lỗi này !';
 		switch ($code) {
@@ -34,6 +35,7 @@ class Option {
 			case self::ERROR_VALUE : $msg = 'Giá trị tuỳ chọn không hợp lệ !'; break;
 			case self::ERROR_NOTEXISTS : $msg = 'Tuỳ chọn này không tồn tại trên hệ thống !'; break;
 			case self::ERROR_SYSTEM : $msg = 'Tuỳ chọn này là hệ thống không xoá được !'; break;
+			case self::ERROR_EXISTS : $msg = 'Tuỳ chọn này đã tồn tại trên hệ thống !'; break;
 		}
 		return $msg;
 	}
@@ -73,7 +75,23 @@ class Option {
 		return $row;
 	}
 	public static function getAll($options = array(), $page = 1, $limit = 15) {
-
+		$DB = Database::getInstance();
+		$sql = "select * from ".DB_PREFIX."options";
+		if (isset($options['keyword'])) {
+			$sql .= " where option_desc like '%".$DB->escape_string($options['keyword'])."%'";
+		}
+		if (isset($options['name'])) {
+			$sql .= " order by option_desc ". $options['name'];
+		} else {
+			$sql .= " order by option_desc asc"
+		}
+		$sql .= " limit ".(($page - 1) * $limit).", ".$limit;
+		$rows = array();
+		$query = $DB->query($sql);
+		while ($row = $DB->fetch_array($query)) {
+			$rows[] = $row;
+		}
+		return $rows;
 	}
 	public static function add($option, $value, $desc = '', $autoload = 'n') {
 		$row = self::getOne($option);
