@@ -43,6 +43,15 @@ class Option {
 	public static function is_system($option) {
 		return in_array($option, self::$systems);
 	}
+	public static function option_field($option, $value) {
+		$html = '<textarea name="option_value" placeholder="Option value">'.$value.'</textarea>';
+		if ($option == 'login_code') {
+			$html = '<select name="option_value"><option value="y"'.($value == 'y' > ' selected="selected"' : '').'>có</option><option value="n"'.($value == 'n' > ' selected="selected"' : '').'>Không</option></select>';
+		} else if ($option == 'site_url' || $option == 'row_per_page' || $option == 'balance') {
+			$html = '<input type="text" name="option_value" value="'.$value.'" placeholder="Option value" />';
+		}
+		return $html;
+	}
 	public static function option_value($row) {
 		$value = '[Object Object]';
 		switch($row['option_name']) {
