@@ -84,7 +84,101 @@ function make_alias(str, c) {
 			var allowFiles = ["text/html","text/plain","image/bmp","image/gif","image/jpeg","image/png","image/vnd.microsoft.icon","video/mpeg","video/quicktime","video/x-msvideo","video/x-ms-wmv","audio/mpeg","audio/x-pn-realaudio","audio/x-pn-realaudio-plugin","audio/x-realaudio","audio/x-wav","text/css","application/zip","application/pdf","application/msword","application/octet-stream","application/vnd.ms-excel","application/vnd.ms-powerpoint","application/vnd.wap.wbxml","application/vnd.wap.wmlc","application/vnd.wap.wmlscriptc","application/x-dvi","application/x-futuresplash","application/x-gtar","application/x-gzip","application/x-javascript","application/x-shockwave-flash","application/x-tar","application/xhtml+xml","audio/basic","audio/midi","audio/x-mpegurl","image/tiff","text/rtf","text/vnd.wap.wml","text/vnd.wap.wmlscript","text/xml"];
 		}
 		var file = this.files[0];
-		
+		if (file.size > 0 && allowFiles.indexOf(file.type) != -1) {
+			var _URL = window.URL || window.webkitURL;
+			var blobImage = _URL.createObjectURL(file);
+			var blobName = file.name;
+			fetch(blobImage).then(function(response) {
+				if (response.status === 200 || response.status === 0) {
+					return response.blob();
+				}
+			}).then(function(blob) {
+				if (blob.size > BYTES_PER_CHUNK) {
+					const SIZE = blob.size;
+					var start = 0;
+					var end = BYTES_PER_CHUNK;
+					var bytes = BYTES_PER_CHUNK;
+					var part = function(blob, start, end, callback) {
+						if ('mozSlice' in blob) {
+							var chunk = blob.mozSlice(start, end);
+						} else if ('webkitSlice' in blob) {
+							var chunk = blob.webkitSlice(start, end);
+						} else {
+							var chunk = blob.slice(start, end);
+						}
+						var formData = new FormData();
+						formData.append('chunk',chunk, (blobName || 'image.jpg'));
+						for(var key in data) {
+							formData.append(key, data[key]);
+						}
+						var xhr = new XMLHttpRequest();
+						xhr.upload.addEventListener("progress", function(e) {
+							if(e.lengthComputable) {
+								var percentComplete = Math.round(e.loaded * 100 / e.total);
+							}
+						}, false);
+						xhr.addEventListener("load", function(e) {
+							if (e.target.responseText.length > 0) {
+								try {
+									var obj = JSON.parse(e.target.responseText);
+									if (obj.status == 'success') {
+										if (end < blob.size) {
+											start = end;
+											end = start + BYTES_PER_CHUNK;
+											if (end > blob.size) {
+												end = blob.size;
+											}
+											bytes = end;
+											part(blob, start, end, callback);
+										} else {
+											return callback(obj);
+										}
+										xhr = null;
+									} else {
+										return callback(obj);
+									}
+								} catch(ex) {
+									return callback({status:'error', data : null, msg : ex.message});
+								}
+							} else {
+								xhr = null;
+								return callback({status:'error',data:null, msg : 'Máy chủ đang bận vui lòng thử lại.'});
+							}
+						});
+						xhr.addEventListener("error", function(e) {
+							
+						}, false);
+						xhr.addEventListener("abort", function(e) {
+							xhr.abort();
+							xhr = null;
+						}, false);
+						xhr.open('POST',uploadurl, true);
+						xhr.withCredentials = true;
+						xhr.setRequestHeader("X-Index", bytes);
+						xhr.setRequestHeader("X-Total", blob.size);
+						xhr.setRequestHeader("X-Name", input_name);
+						xhr.send(formData);
+					};
+					part(blob, start, end, function(obj) {
+						if (obj.data == null) {
+							
+						} else {
+							var image = obj.data;
+						}
+					});
+				} else {
+					var formData = new FormData();
+					formData.append('file',blob, (blobName || 'image.jpg'));
+					for(var key in data) {
+						formData.append(key, data[key]);
+					}
+					var sendData = function(url, data, callback) {};
+					sendData(uploadurl, formData, function(obj) {
+						
+					});
+				}
+			});
+		}
 	});
 	$(document).on('click','a.remove',function(e) {
 		
