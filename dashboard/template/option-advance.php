@@ -8,7 +8,7 @@ require_once TEMPLATEPATH . 'header.php';
 if (isset($_GET['msg'])) {
 	$code = intval($_GET['msg']);
 	$msg = Option::message(intval($code);
-	$msg_status = in_array($code, array(Option::ERROR_SAVED, Option::ERROR_UPDATED, Option::ERROR_DELETED)) ? ' success' : '';
+	$msg_status = in_array($code, array(Option::ERROR_SAVED, Option::ERROR_UPDATED, Option::ERROR_DELETED, Option::ERROR_LOADED)) ? ' success' : '';
 	echo '<div class="error_notify'.$msg_status.'">'.$msg.'</div>';
 }
 ?>
