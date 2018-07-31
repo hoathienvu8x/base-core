@@ -6,9 +6,9 @@ if (!defined('INAPP')) {
 //mysql database address
 define('DB_HOST','localhost');
 //mysql database user
-define('DB_USER','root');
+define('DB_USER','admin');
 //database password
-define('DB_PASSWD','none_leave_empty');
+define('DB_PASSWD','');
 //database name
 define('DB_NAME','dashboard');
 //database prefix
