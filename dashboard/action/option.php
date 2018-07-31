@@ -7,6 +7,10 @@ $pageTitle = 'ACP :: Quản lý quyền cho người dùng';
 
 $args = array();
 
+if (isset($_GET['edit']) && !empty($_GET['edit'])) {
+	$args['edit'] = trim($_GET['edit']);
+}
+
 if (isset($_POST['saved'])) {
 	$data = array(
 		'option_name' => '',
@@ -15,9 +19,10 @@ if (isset($_POST['saved'])) {
 		'autoload' => isset($_POST['autoload']) ? trim($_POST['autoload']) : 'n'
 	);
 	if (!isset($_POST['option_name']) || empty($_POST['option_name'])) {
+		$args[] = Option::ERROR_NAME;
 		access_response(array(
 			'status' => 'error',
-			'direct' => Url::option(array('msg' => Option::ERROR_NAME)),
+			'direct' => Url::option($args),
 			'msg' => Option::message(Option::ERROR_NAME)
 		));
 		exit;
@@ -90,12 +95,10 @@ if (isset($_POST['saved'])) {
 			}
 		}
 	}
-
 }
 
-if (isset($_GET['edit']) && intval($_GET['edit']) > 0) {
+if (isset($_GET['edit']) && !empty($_GET['edit'])) {
 	$option = Option::getOne(trim($_GET['edit']));
-	$args['edit'] = trim($_GET['edit']);
 	if (!$option) {
 		$args['msg'] = Option::ERROR_NOTEXISTS;
 		access_response(array(
@@ -112,7 +115,6 @@ if (isset($_GET['edit']) && intval($_GET['edit']) > 0) {
 
 if (isset($_GET['mode']) && strtolower($_GET['mode']) == 'add') {
 	$pageTitle = 'ACP :: Thêm tuỳ chọn';
-	$args['mode'] = 'add';
 	require_once TEMPLATEPATH . 'option-advance.php';
 	exit;
 }
