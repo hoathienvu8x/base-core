@@ -177,6 +177,20 @@ function get_current_user_id() {
 function get_user_data($key, $default = false) {
 	return Auth::get($key, $default);
 }
+function is_user_logged_in() {
+	return Auth::isLogged();
+}
+function body_class() {
+	if (!is_user_logged_in()) {
+		echo ' class="login"';
+	} else {
+        	$action = isset($_GET['action']) ? trim($_GET['action']) : '';
+		if (empty($action)) {
+            		$action = 'home';
+        	}
+		echo ' class="'.$action.'"';
+    	}
+}
 function make_alias_from_str($str) {
 	$trans = array(
 		'à'=>'a','á'=>'a','ả'=>'a','ã'=>'a','ạ'=>'a',
