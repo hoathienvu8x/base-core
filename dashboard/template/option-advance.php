@@ -25,7 +25,11 @@ if (empty($args)) {
 		<?php endif; ?>
 		<p>
 			Option value<br />
-			<textarea name="option_value" placeholder="Option value"><?php echo isset($option['option_value']) ? $option['option_value'] : ''; ?></textarea>
+			<?php
+			$opt_name = isset($option['option_name']) ? $option['option_name'] : '';
+			$opt_value =isset($option['option_value']) ? $option['option_value'] : '';
+			?>
+			<?php echo Option::option_field($opt_name, $opt_value); ?>
 		</p>
 		<p>
 			Description<br />
