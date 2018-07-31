@@ -3,7 +3,7 @@ if (!defined('INAPP')) {
 	header('HTTP/1.1 404 Not Found');
 	exit;
 }
-$pageTitle = 'ACP :: Quản lý quyền cho người dùng';
+$pageTitle = 'ACP :: Quản lý tuỳ chọn';
 
 $args = array();
 
@@ -109,13 +109,13 @@ if (isset($_GET['edit']) && !empty($_GET['edit'])) {
 		exit;
 	}
 	$pageTitle = 'ACP :: Cập nhật tuỳ chọn';
-	require_once TEMPLATEPATH . 'option-advance.php';
+	require_once Xtemplate::get('option-advance');
 	exit;
 }
 
 if (isset($_GET['mode']) && strtolower($_GET['mode']) == 'add') {
 	$pageTitle = 'ACP :: Thêm tuỳ chọn';
-	require_once TEMPLATEPATH . 'option-advance.php';
+	require_once Xtemplate::get('option-advance');
 	exit;
 }
 
@@ -163,6 +163,6 @@ if (isset($_GET['byname']) && preg_match('/^(asc|desc)$/i', trim($_GET['byname']
 
 $roles = Option::getAll($options, $page, Option::get('row_per_page', 15));
 
-require_once TEMPLATEPATH . 'option.php';
+require_once Xtemplate::get('option');
 exit;
 ?>
