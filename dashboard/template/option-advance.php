@@ -27,6 +27,9 @@ if (isset($_GET['msg'])) {
 			<textarea name="option_desc" placeholder="Description"><?php echo isset($option['option_desc']) ? $option['option_desc'] : ''; ?></textarea>
 		</p>
 		<p class="bottom">
+			<?php if (isset($args['edit']) && !empty($args['edit'])) : ?>
+			<input type="hidden" name="edit" value="<?php echo $args['edit']; ?>" />
+			<?php endif; ?>
 			<input type="submit" name="saved" value="Lưu thông tin" />
 		</p>
 	</form>
