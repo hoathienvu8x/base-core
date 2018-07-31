@@ -1,0 +1,194 @@
+<script>
+	(function($) {
+		var blobImage = null;
+		var blobName = null;
+		var banks = <?php echo json_encode($all_banks); ?>;
+		for(var i in banks) {
+			$(document).on('click', 'span#'+banks[i], function(e) {
+				var obj = $(this).data();
+				if (obj.number && obj.name && obj.location) {
+					$('#account').html('<strong>'+obj.number+'</strong><br />Chủ tài khoản: '+obj.name+'<br />Chi nhánh: '+obj.location);
+				}
+			});
+		}
+		$('input[name="bill"]').change(function () {
+			var file = this.files[0];
+			if (file.size > 0 && ['image/png','image/jpg','image/gif','image/jpeg'].indexOf(file.type) != -1) {
+				var _URL = window.URL || window.webkitURL;
+				blobImage = _URL.createObjectURL(file);
+				blobName = file.name;
+				$('img#preview').attr('src',blobImage);
+				$('img#preview').show();
+			}
+		});
+		$('form[name="frmpayment"]').on('submit', function(e) { e.preventDefault(); return false; });
+		$(document).on('click', 'input[name="submit"]', function(e) {
+			e.preventDefault();
+			var bankID = $('input[name="account_id"]:checked').val();
+			var telephone = $('input[name="tel"]').val();
+			var amount = $('input[name="amount"]:checked').val();
+			var msg = '';
+			telephone = (telephone || '').replace(/^\+84/,'0').replace(/^84/,'0');
+			if (!bankID) {
+				msg = 'Vui lòng chọn tài khoản quý khách đã chuyển tới !';
+			} else if (telephone.length <= 0 || /^0[0-9]{9,10}$/.test(telephone) === false) {
+				msg = 'Số điện thoại này không hợp lệ !';
+			} else if (amount.length <= 0 || /^[0-9]+$/.test(amount) == false) {
+				msg = 'Số tiền đóng không hợp lệ !';
+			}
+			if (msg.length > 0) {
+				$('p#message').html(msg);
+				return false;
+			}
+			var data = {
+				account : bankID,
+				telephone : telephone,
+				amount : amount
+			};
+			var igree = $('input[name="igree"]:checked').val();
+			if (igree) {
+				data.igree = 'y';
+			}
+			var sendData = function(url, data, callback) {
+				var xhr = new XMLHttpRequest();
+				xhr.upload.addEventListener("progress", function(e) {
+					if(e.lengthComputable) {
+						var percentComplete = Math.round(e.loaded * 100 / e.total);
+					}
+				}, false);
+				xhr.addEventListener("load", function(e) {
+					if (e.target.responseText.length > 0) {
+						try {
+							var obj = JSON.parse(e.target.responseText);
+							callback(obj);
+						} catch (ex) {
+							callback({status: 'error',data:null, msg : 'Hệ thống đang bận vui lòng thử lại sau !'});
+						}
+					} else {
+						callback({status: 'error',data:null, msg : 'Hệ thống đang bận vui lòng thử lại sau '});
+					}
+					xhr = null;
+				}, false);
+				xhr.addEventListener("error", function(e) {
+					callback({status: 'error',data:null, msg : "Lỗi hệ thống vui lòng thử lại sau"});
+				}, false);
+				xhr.addEventListener("abort", function(e) {
+					xhr.abort();
+					xhr = null;
+				}, false);
+				xhr.open('POST',url, false);
+				xhr.withCredentials = true;
+				xhr.send(data);
+			};
+			var handleResponse = function(obj) {
+				$('img#loading').hide();
+				$('p#message').html(obj.msg);
+				if (obj.status == 'success') {
+					$('p#message').css({color:'#ffffff','background-color':'green'});
+				}
+			};
+			$('img#loading').show();
+			if (blobImage) {
+				fetch(blobImage).then(function(response) {
+					if (response.status === 200 || response.status === 0) {
+						return response.blob();
+					}
+					$('p#message').html('Kết nối mạng không ổn định vui lòng thử lại.');
+				}).then(function(blob) {
+					if (blob.size > <?php echo BYTES_PER_CHUNK;?>) {
+						const BYTES_PER_CHUNK = <?php echo BYTES_PER_CHUNK;?>;
+						const SIZE = blob.size;
+						var start = 0;
+						var end = BYTES_PER_CHUNK;
+						var bytes = BYTES_PER_CHUNK;
+						
+						var part = function(blob, start, end, callback) {
+							console.log({
+								start : start,
+								end : end,
+								bytes : bytes
+							});
+							if ('mozSlice' in blob) {
+								var chunk = blob.mozSlice(start, end);
+							} else if ('webkitSlice' in blob) {
+								var chunk = blob.webkitSlice(start, end);
+							} else {
+								var chunk = blob.slice(start, end);
+							}
+							var formData = new FormData();
+							formData.append('chunk',chunk, (blobName || 'bill.jpg'));
+							var xhr = new XMLHttpRequest();
+							xhr.upload.addEventListener("progress", function(e) {
+								if(e.lengthComputable) {
+									var percentComplete = Math.round(e.loaded * 100 / e.total);
+								}
+							}, false);
+							xhr.addEventListener("load", function(e) {
+								if (e.target.responseText.length > 0) {
+									if (end < blob.size) {
+										start = end;
+										end = start + BYTES_PER_CHUNK;
+										if (end > blob.size) {
+											end = blob.size;
+										}
+										bytes = end;
+										part(blob, start, end, callback);
+									} else {
+										return callback(e.target.responseText);
+									}
+									xhr = null;
+								}
+							});
+							xhr.addEventListener("error", function(e) {
+								$('p#message').html("Lỗi tải tập tin vui lòng thử lại.");
+							}, false);
+							xhr.addEventListener("abort", function(e) {
+								xhr.abort();
+								xhr = null;
+							}, false);
+							xhr.open('POST','<?php echo SITE_URL; ?>?action=banktransfer', false);
+							xhr.withCredentials = true;
+							xhr.setRequestHeader("X-Index", bytes);
+							xhr.setRequestHeader("X-Total", blob.size);
+							xhr.send(formData);
+						};
+						part(blob, start, end, function(resp) {
+							try {
+								var obj = JSON.parse(resp);
+								if (obj.data == null) {
+									$('p#message').html('Hệ thống đang bận vui lòng thử lại sau');
+									return console.log('Null data');
+								}
+								var formData = new FormData();
+								for(var key in data) {
+									formData.append(key, data[key]);
+								}
+								formData.append('url', obj.data.url);
+								formData.append('submit','Thanh toán');
+								sendData('<?php echo SITE_URL; ?>?action=banktransfer', formData, handleResponse);
+							} catch(ex) {
+								console.log('Error: ' + ex.message);
+							}
+						});
+					} else {
+						var formData = new FormData();
+						for(var key in data) {
+							formData.append(key, data[key]);
+						}
+						formData.append('submit','Thanh toán');
+						formData.append('bill', blob, (blobName || 'bill.jpg'));
+						sendData('<?php echo SITE_URL; ?>?action=banktransfer', formData, handleResponse);
+					}
+				});
+			} else {
+				var formData = new FormData();
+				for(var key in data) {
+					formData.append(key, data[key]);
+				}
+				formData.append('submit','Thanh toán');
+				sendData('<?php echo SITE_URL; ?>?action=banktransfer', formData, handleResponse);
+			}
+			return false;
+		});
+	})(jQuery);
+</script>
