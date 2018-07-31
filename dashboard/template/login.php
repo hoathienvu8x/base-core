@@ -4,7 +4,7 @@ if (!defined('INAPP')) {
 	exit;
 }
 
-require_once TEMPLATEPATH . 'header.php';
+require_once Xtemplate::get( 'header' );
 ?>
 <div id="login">
 	<form action="<?php echo Url::home();?>" method="post" id="frmlogin">
@@ -28,6 +28,6 @@ if (isset($_GET['msg'])) {
 if (isset($_GET['lg']) && $_GET['lg'] == 'true') {
 	?><div id="logout-msg"><?php echo Auth::message(trim($_GET['lg'])); ?></div><?php
 }
-require_once TEMPLATEPATH . 'footer.php';
+require_once Xtemplate::get( 'footer' );
 exit;
 ?>

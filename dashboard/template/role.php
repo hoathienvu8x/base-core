@@ -4,7 +4,7 @@ if (!defined('INAPP')) {
 	exit;
 }
 
-require_once TEMPLATEPATH . 'header.php';
+require_once Xtemplate::get( 'header' );
 ?>
 
 <?php foreach($roles as $row) : ?>
@@ -12,6 +12,6 @@ require_once TEMPLATEPATH . 'header.php';
 <?php endforeach; ?>
 
 <?php
-require_once TEMPLATEPATH . 'footer.php';
+require_once Xtemplate::get( 'footer' );
 exit;
 ?>

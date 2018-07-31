@@ -4,7 +4,7 @@ if (!defined('INAPP')) {
 	exit;
 }
 
-require_once TEMPLATEPATH . 'header.php';
+require_once Xtemplate::get( 'header' );
 if (isset($_GET['msg']) && is_numeric($_GET['msg'])) {
 	$msg_errno = intval($_GET['msg']);
 	$msg_status = '';
@@ -40,6 +40,6 @@ if (isset($_GET['msg']) && is_numeric($_GET['msg'])) {
 	</form>
 </div>
 <?php
-require_once TEMPLATEPATH . 'footer.php';
+require_once Xtemplate::get( 'footer' );
 exit;
 ?>

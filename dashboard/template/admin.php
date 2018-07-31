@@ -4,7 +4,7 @@ if (!defined('INAPP')) {
 	exit;
 }
 
-require_once TEMPLATEPATH . 'header.php';
+require_once Xtemplate::get( 'header' );
 if (isset($_GET['msg'])) {
         $msg = User::message(intval($_GET['msg']));
         $msg_status = in_array(intval($_GET['msg']),array(User::ERROR_SAVED, User::ERROR_UPDATED, User::ERROR_DELETED, User::ERROR_CHANGED)) ? ' success' : '';
@@ -37,6 +37,6 @@ if (isset($_GET['msg'])) {
 </tbody>
 </table>
 <?php
-require_once TEMPLATEPATH . 'footer.php';
+require_once Xtemplate::get( 'footer' );
 exit;
 ?>

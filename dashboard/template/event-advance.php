@@ -4,7 +4,7 @@ if (!defined('INAPP')) {
 	exit;
 }
 
-require_once TEMPLATEPATH . 'header.php';
+require_once Xtemplate::get( 'header' );
 ?>
 <div class="form-elements">
 	<form action="<?php echo Url::event(); ?>" method="post">
@@ -31,6 +31,6 @@ require_once TEMPLATEPATH . 'header.php';
 	</form>
 </div>
 <?php
-require_once TEMPLATEPATH . 'footer.php';
+require_once Xtemplate::get( 'footer' );
 exit;
 ?>

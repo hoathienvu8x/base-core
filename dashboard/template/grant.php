@@ -4,10 +4,10 @@ if (!defined('INAPP')) {
 	exit;
 }
 
-require_once TEMPLATEPATH . 'header.php';
+require_once Xtemplate::get( 'header' );
 ?>
 
 <?php
-require_once TEMPLATEPATH . 'footer.php';
+require_once Xtemplage::get( 'footer' );
 exit;
 ?>

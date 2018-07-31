@@ -21,7 +21,7 @@ if (!defined('INAPP')) {
 <?php
 if (Auth::isLogged()){
 	?><div id="nav-wrap" class="nav-wrap"></div><?php
-	require_once TEMPLATEPATH . 'navi.php';
+	require_once Xtemplate::get( 'navi' );
 	?>
 	<div id="container">
 	<div id="header">

@@ -4,7 +4,7 @@ if (!defined('INAPP')) {
 	exit;
 }
 
-require_once TEMPLATEPATH . 'header.php';
+require_once Xtemplate::get( 'header' );
 ?>
 <div id="forgot">
 	<form action="<?php echo Url::forgot();?>" method="post" id="frmforgot">
@@ -23,5 +23,5 @@ if (isset($_GET['msg'])) {
 	$msg = intval($_GET['msg']);
 	?><div id="forgot-msg"><?php echo User::message($msg); ?></div><?php
 }
-require_once TEMPLATEPATH . 'footer.php';
+require_once Xtemplate::get( 'footer' );
 ?>

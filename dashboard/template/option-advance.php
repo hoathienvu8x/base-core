@@ -4,7 +4,7 @@ if (!defined('INAPP')) {
 	exit;
 }
 
-require_once TEMPLATEPATH . 'header.php';
+require_once Xtemplate::get( 'header' );
 if (isset($_GET['msg'])) {
 	$code = intval($_GET['msg']);
 	$msg = Option::message($code);
@@ -40,6 +40,6 @@ if (empty($args)) {
 	</form>
 </div>
 <?php
-require_once TEMPLATEPATH . 'footer.php';
+require_once Xtemplate::get( 'footer' );
 exit;
 ?>
