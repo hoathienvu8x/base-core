@@ -23,9 +23,9 @@ require_once Xtemplate::get( 'header' );
 	<td><?php echo $row['option_desc']; ?></td>
 	<td><?php echo Option::option_value($row); ?></td>
 	<td>
-		<a href="<?php echo Url::option(array('edit' => $row['option_name'])); ?>">Edit</a>
+		<a href="<?php echo Url::option(array('edit' => $row['option_name'])); ?>" class="edit">Edit</a>
 		<?php if ($is_system == false) : ?>
-		<a href="<?php echo Url::option(array('del' => $row['option_name'])); ?>">Delete</a>
+		<a href="<?php echo Url::option(array('del' => $row['option_name'])); ?>" class="remove">Delete</a>
 		<?php endif; ?>
 	</td>
 </tr>

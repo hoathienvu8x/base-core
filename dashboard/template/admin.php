@@ -29,8 +29,8 @@ if (isset($_GET['msg'])) {
 	<td><?php echo $row['username'];?></td>
 	<td><?php echo $row['email']; ?></td>
 	<td>
-		<a href="<?php echo Url::admin(array('edit' => $row['id'])); ?>">Edit</a>
-		<a href="<?php echo Url::admin(array('del' => $row['id'])); ?>">Delete</a>
+		<a href="<?php echo Url::admin(array('edit' => $row['id'])); ?>" class="edit">Edit</a>
+		<a href="<?php echo Url::admin(array('del' => $row['id'])); ?>" class="remove">Delete</a>
 	</td>
 </tr>
 <?php endforeach; ?>
