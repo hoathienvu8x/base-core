@@ -250,6 +250,32 @@ table.list-table th.tools, table.list-table td.tools {
 table.list-table tbody tr:last-child td {
 	border-bottom-color:#fff;
 }
+.navTools {
+	padding:24px 0;
+	text-align:right;
+	margin:10px 0;
+}
+.pageNavi .total {
+	font-weight:bold;
+}
+.pageNavi .total, .pageNavi .first-page, .pageNavi .current, .pageNavi .next-page, .pageNavi .last-page {
+	display:inline-block;
+	padding:7px 9px;
+}
+.pageNavi input.navi-page {
+	background-color:transparent;
+	border:none;
+	width:45px;
+	text-align:right;
+	font-size:14px;
+	margin:0;
+	color:#666;
+}
+.pageNavi .next-page {
+	background-color:#357ae8;
+	color:#fff;
+	border-radius:2px;
+}
 #footer-wrapper {
 	color: #9e9e9e;
 	padding: 8px 24px;
