@@ -1,7 +1,7 @@
 <?php
 define('SITE_URL', './');
 function is_user_loggin() {
-	return true;
+	return false;
 }
 function get_user_data($key, $default) {
 	return 'Trần Ngọc Nhật';
@@ -31,10 +31,10 @@ class Url {
 	}
 	public static function action($action, $args = array()){
 		$query_string = self::query($args);
-		return SITE_URL . '?action='.$action .(!empty($query_string ? '&'.implode('&',$query_string)) : '');
+		return SITE_URL . '?action=' . $action . (!empty($query_string) ? '&'.implode('&',$query_string) : '');
 	}
 	public static function admin($args = array()) {
-		return self::action('admin', $args)
+		return self::action('admin', $args);
 	}
 	public static function forgot($args = array()) {
 		return self::action('forgot', $args);
