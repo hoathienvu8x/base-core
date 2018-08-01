@@ -181,6 +181,7 @@ body.login .message {
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 	height:100%;
 	position:fixed;
+	z-index:10;
 }
 #aside-top {
 	width:100%;
@@ -194,4 +195,33 @@ body.login .message {
 	height: 40px;
 	margin-left: 10px;
 	margin-top: 10px;
+}
+#content-wrapper{
+	padding-left:288px;
+	transition-property: padding-left;
+}
+#header-wrap {
+	position:fixed;
+	left:288px;
+	top:0;
+	right:0;
+	transition-property: left;
+	transition-duration: 150ms;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	z-index:10;
+}
+#header-inner {
+	background-color:#1565c0;
+	height:60px;
+	color:#fff;
+	top:0;
+	z-index:10;
+}
+#content {
+	margin-top:60px;
+}
+#footer-wrapper {
+	color: #9e9e9e;
+	padding: 8px 24px;
+	text-aligin:right;
 }
