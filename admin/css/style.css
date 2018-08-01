@@ -253,7 +253,7 @@ table.list-table tbody tr:last-child td {
 .navTools {
 	padding:24px 0;
 	text-align:right;
-	margin:10px 0;
+	margin:0 0 5px;
 }
 .pageNavi .total {
 	font-weight:bold;

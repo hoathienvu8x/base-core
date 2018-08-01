@@ -3,7 +3,7 @@
 	<p>
                 <span class="total">1,123 mục</span>
                 <a class="first-page" href="#">Đầu tiên</a>
-                <span class="current"><input type="number" value="2" class="navi-page" name="page" />/120</span>
+                <span class="current">2/120</span>
                 <a class="next-page" href="#">Trang sau</a>
                 <a class="last-page" href="#">Trang cuối</a>
         </p>
@@ -37,7 +37,7 @@
 	<p>
 		<span class="total">1,123 mục</span>
 		<a class="first-page" href="#">Đầu tiên</a>
-		<span class="current"><input type="number" value="2" class="navi-page" name="page" />/120</span>
+		<span class="current">2/120</span>
 		<a class="next-page" href="#">Trang sau</a>
 		<a class="last-page" href="#">Trang cuối</a>
 	</p>
