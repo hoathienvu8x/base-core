@@ -223,18 +223,56 @@ body.login .message {
 #content-inner {
 	padding:24px;
 }
-.data-table {
+.data-table, .data-form {
 	background-color:#fff;
 	padding:15px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
-table.list-table {
+body.profile .data-form {
+	margin:24px auto;
+	max-width:724px;
+}
+table.list-table, table.form-elements {
 	width:100%;
 }
-table.list-table th, table.list-table td {
+table.list-table th, table.list-table td, table.form-elements td {
 	text-align:left;
 	padding:12px 8px;
 	border-bottom:1px solid #ccc;
 	vertical-align:middle;
+}
+table.form-elements td {
+	vertical-align:top;
+}
+table.form-elements tr:last-child td {
+	border-bottom-color:#fff;
+	padding-top:16px;
+}
+table.form-elements tr td:first-child {
+	font-size:18px;
+	min-width:240px;
+	max-width:240px;
+	width:240px;
+}
+table.form-elements p {
+	line-height:25px;
+	color:#666;
+	margin-top:16px;
+}
+table.form-elements td p:first-child {
+	margin-top:0px;
+}
+table.form-elements td p:last-child {
+	margin-bottom:16px;
+}
+table.form-elements input[type="text"], table.form-elements input[type="email"], table.form-elements input[type="password"] {
+	background-color:transparent;
+	border:1px solid #fff;
+	border-bottom-color:#e0e0e0;
+	width:328px;
+	color:#000;
+	font-size:16px;
+	line-height:200%;
 }
 table.list-table th {
 	font-size:12px;
@@ -261,15 +299,6 @@ table.list-table tbody tr:last-child td {
 .pageNavi .total, .pageNavi .first-page, .pageNavi .current, .pageNavi .next-page, .pageNavi .last-page {
 	display:inline-block;
 	padding:7px 9px;
-}
-.pageNavi input.navi-page {
-	background-color:transparent;
-	border:none;
-	width:45px;
-	text-align:right;
-	font-size:14px;
-	margin:0;
-	color:#666;
 }
 .pageNavi .next-page {
 	background-color:#357ae8;

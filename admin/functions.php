@@ -1,7 +1,7 @@
 <?php
 define('SITE_URL', './');
 function is_user_loggin() {
-	return false;
+	return true;
 }
 function get_user_data($key, $default) {
 	return 'Trần Ngọc Nhật';
