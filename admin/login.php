@@ -18,5 +18,8 @@
 			<input type="submit" name="logon" value="Login" />
 		</div>
 	</div>
+	<div class="message error">
+		<p>Vui lòng đăng nhập !</p>
+	</div>
 </form>
 <?php require_once 'footer.php'; ?>
