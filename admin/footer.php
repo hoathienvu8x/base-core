@@ -1,4 +1,5 @@
 <?php if (is_user_loggin()) : ?>
+		</div><!-- End of content inner-->
 	</div><!-- End of content -->
 <?php endif; ?>
 	<div id="footer-wrapper">

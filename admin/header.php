@@ -20,4 +20,5 @@ require_once 'functions.php';
 		<div id="header-inner"></div>
 	</div>
 	<div id="content">
+		<div id="content-inner">
 <?php endif; ?>
